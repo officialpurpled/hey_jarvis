@@ -5,8 +5,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Text based Hey Jarvis  v2.0">
   <title>Hey Jarvis</title>
+  <link rel="stylesheet" href="jarvis_beauty.css">
 </head>
 <body>
+  <div class="app">
+    <!-- the header sec -->
+    <header>
+      <div class="nav-back">
+        {->}
+      </div>
+      <div class="title">
+        <h1>Hey Jarvis</h1> 
+        <div class="status">Inactive</div>
+      </div>
+      <div class="switch" onclick="window.location= '../'">
+        🔁
+      </div>
+    </header>
+
+    <!-- main UI -->
+    <main>
+      <!-- <div class="chat-container"> -->
+        <div class="chat-UI" id="chat-UI"> 
+
+          <div class="new-chat">
+            📄 Start of new chat with Jarvis
+          </div>
+
+          <div id="me">
+            <b>You:</b> 
+            <br>
+            hello, jarvis
+            <br> 
+            <span class="time"> 10: 55am</span>
+          </div>
+
+          <div id="jarvis">
+            <b>Jarvis</b> <br>
+            Hi  how can i be of help?
+            <br> <span class="time"> 10: 55am</span>
+          </div>
+          <div id="me">
+            <b>You</b> 
+            <br>
+            whats todays date please?
+            todays date please?
+             whats todays date please?
+              whats todays date please?
+               whats todays date please?
+                whats todays date please?
+
+               whats todays date please?
+               whats todays date please?
+
+             whats to
+              
+            <br> 
+            <span class="time"> 10: 55am</span>
+          </div>
+           <div id="jarvis">
+            <b>Jarvis</b> 
+            <br>
+              Hi  how can i be of help?
+            <br> 
+            <span class="time"> 10: 55am</span>
+          </div>
+          <div id="me">
+            aiit, thnak you.
+          </div>
+          <div id="jarvis">
+            <b>Jarvis</b> 
+            <br>
+              Hi  how can i be of help?
+            <br> 
+            <span class="time"> 10: 55am</span>
+          </div>
+          <div id="me">
+            whats todays date please?
+          </div>
+          <div id="jarvis">
+             <b>Jarvis</b> 
+             <br>
+             todays is monday, 14 august 2030!
+            <br> 
+            <span class="time"> 10: 55am</span>
+          </div>
+        </div>
+      <!-- </div> -->
+      
+      <!-- <div class="form-wrapper"> -->
+        <form>
+          <input type="text" 
+            class="prompt-field" 
+            id="prompt-field" 
+            placeholder="Enter your prompt here"  
+            value="qwertyggggggggggggggggggggggggggggggggggggggggggg"
+          >
+          <button id="sendBtn">
+            SEND 
+            <i class="fa-fa-home"\>
+          </button>
+        </form>
+      <!-- </div> -->
+    </main>
   
+    <!-- Bottom -->
+    <nav>
+
+    </nav>
+  </div>
+  <script src="jarvis_engine.js"></script>
 </body>
 </html>
