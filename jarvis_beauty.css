@@ -64,28 +64,41 @@ body{
 
 .result div {
   word-wrap: break-word;
-  margin: 10px; 
   padding: 10px; 
   border-radius: 10px; 
   max-width: 70%;
+ 
 }
-
-.result > div:nth-child(even){
+/* old */
+/* .result > div:nth-child(even){
   border: 1px rgba(224, 235, 12, 0.87) solid;
   align-self: flex-start; 
 }
 .result > div:nth-child(odd){
   border: 1px rgba(255, 255, 255, 0.763) solid;
   align-self: flex-end; 
-}
+} */
 
-#me{ 
+/* new */
+#You{  
+  border-bottom-right-radius: 1px;
   border: 1px rgba(255, 255, 255, 0.763) solid;
   align-self: flex-end; 
 }
-#jarvis{
+#System{ 
+  border-radius: 0;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-style: italic;
+  font-size: smaller;
+  align-self: flex-start;
+  color: rgb(230, 52, 52); 
+}
+#Jarvis{
+  border-bottom-left-radius: 1px;
   border: 1px rgba(224, 235, 12, 0.87) solid;
-  align-self: flex-start; 
+  align-self: flex-start;
 }
 
 .btns{
@@ -102,18 +115,17 @@ body{
   background-color:  rgb(47, 52, 190);
 }
 
-
 button{
   font-size: 15px;
   text-align: center;
   color: white;
   text-transform: uppercase;
-  background-color: rgb(3, 110, 3);
+  background-color: rgb(13, 84, 13);
   font-weight: 600;
   border: solid white 2px;
   border-radius: 7px;
   padding: 8px 17px;
 }
 #stopBtn{
-  background-color: brown;
+  background-color: rgb(104, 26, 26);
 }

@@ -1,35 +1,49 @@
 let human;
 let isSpeaking = false;
-let isAwake = false;
+let isAwake = true;
 let silenceTimer = null;
 let lastRequestTime = 0;
 let memory = [];
 
-const dResult = document.querySelector('.result');
+const ui = document.querySelector('.result');
 const synth = window.speechSynthesis;
 
 const MAX_MEMORY_ENTRIES = 20;
 const MAX_LOG_LINES = 40;
 
-//update status
-function updateStatus() {
+//update jarvis status
+function updateStatus(param) {
   const status = document.querySelector('.status');
 
-  status.textContent = isAwake ? 'Active' : 'Inactive';
-  status.style.color = isAwake ? 'lightgreen' : 'red';
+  status.textContent = param ? 'Active' : 'Inactive';
+  status.style.color = param ? 'lightgreen' : 'red';
 }
 
+//UI handler with scroll management
 function appendLog(label, message) {
   if (!message) return;
-  const entry = document.createElement('div');
-  entry.textContent = `${label}: ${message}`;
-  dResult.appendChild(entry);
-  while (dResult.children.length > MAX_LOG_LINES) {
-    dResult.removeChild(dResult.firstChild);
+
+  // const entry = document.createElement(`div id="${label}"`);
+  // entry.textContent = `
+    // ${label}: 
+    // ${message}
+  // `;
+  // ui.appendChild(entry);
+
+  ui.innerHTML += `
+    <div id="${label}">
+      ${label}:${message}
+    </div>
+  `
+
+  while (ui.children.length > MAX_LOG_LINES) {
+    ui.removeChild(ui.firstChild);
   }
-  dResult.scrollTop = dResult.scrollHeight;
+
+  ui.scrollTop = ui.scrollHeight;
 }
 
+//Jarvis Memory handler
 function addMemory(role, content) {
   memory.push({ role, content });
   if (memory.length > MAX_MEMORY_ENTRIES) {
@@ -37,6 +51,7 @@ function addMemory(role, content) {
   }
 }
 
+//allowed comands
 const commandMap = {
   'open notepad': 'notepad',
   'open camera': 'camera',
@@ -67,7 +82,7 @@ const commandMap = {
 };
 
 
-/* 🔊 IMPROVED SPEAK FUNCTION */
+/*speak Function*/
 function speak(text) {
   if (!text) return;
 
@@ -76,7 +91,10 @@ function speak(text) {
 
   isSpeaking = true;
   if (human) {
-    try { human.stop(); } catch(e) {}
+    try { human.stop(); } 
+    catch(e) {
+      console.log(e)
+    }
   }
 
   const utter = new SpeechSynthesisUtterance(text);
@@ -86,33 +104,45 @@ function speak(text) {
   const voices = synth.getVoices();
   if (voices.length > 0) {
     // Try to find a Google or Microsoft English voice, else use the first one
-    utter.voice = voices.find(v => v.name.includes('Google') || v.name.includes('Microsoft')) || voices[0];
+    utter.voice = voices.find(v => 
+      v.name.includes('Google') || 
+      v.name.includes('Microsoft')) || 
+      voices[0];
   }
 
   utter.onend = () => {
     isSpeaking = false;
     // Small delay before listening again to avoid feedback
     if (human && !human.stopped) {
-      setTimeout(() => { try { human.start(); } catch(e) {} }, 400);
+      setTimeout(() => { 
+        try { human.start();} 
+        catch(e) {
+          console.log(e.message)
+        } 
+      }, 400);
     }
   };
 
   synth.speak(utter);
 }
 
-/* 🧠 Backend (Same as before) */
+// command processesor
+let serverFail = 0
 function com(command) {
   const now = Date.now();
 
   if (now - lastRequestTime < 5000) { // Wait 5 seconds between questions
-    speak("Please hold on, My processors need a moment.");
+    speak("Please hold on, while i process your request.");
     return;
   }
   lastRequestTime = now;
 
   fetch('https://jarvis-brain-api.onrender.com/api/jarvis', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      // 'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json' 
+    },
     body: JSON.stringify({ 
       command, 
       memory 
@@ -125,24 +155,31 @@ function com(command) {
     appendLog('Jarvis', data.message);
     speak(data.message);
   })
-  .catch(() => {
-    appendLog('Jarvis', 'Internal server error, please restart Jarvis.');
-    speak('Server error occurred');
-    // stopJarvis();
+  .catch((err) => {
+    appendLog('System', 'Internal server error, please restart Jarvis.');
+    if(serverFail === 5) {
+      stopJarvis()
+      console.log(serverFail, 'Max server fail limit hit')
+    }
+    else {
+      serverFail = serverFail + 1
+      speak('Server error occurred');
+      console.log(err);
+    };
   });
 }
 
 function handleCommand(text) {
   appendLog('You', text);
   if (/bye|goodbye|exit|stop|shut down/.test(text)) {
-    const msg = 'Goodbye, Dragon Lord!';
+    const msg = 'Shutting Down...';
     appendLog('Jarvis', msg);
     speak(msg);
     stopJarvis();
     return;
   }
 
-  // (Your other hardcoded commands here...)
+  // hardcoded commands
   // Time / Date
   if (text.includes('time')) {
     const msg = `The time is ${new Date().toLocaleTimeString()}`;
@@ -157,10 +194,12 @@ function handleCommand(text) {
     speak(msg);
     return;
   }
+
   //Personal info
   if (
       text.includes('who is femi') || 
-      text.includes('who is phemy') || 
+      text.includes('who is phemy') ||
+      text.includes('who is phemmy') || 
       text.includes('who is femmy') ||
       text.includes('who is femy')
     ) {
@@ -177,18 +216,18 @@ function handleCommand(text) {
       text.includes('who is purple') ||
       text.includes('who is eritofunmi') 
     ) {
-    const msg = `He is the creator of jarvis. The GOAT himself. The best of the best programmer in the entirerity of Olabisi Onabanjo Univerity.. And He is address as Comrade Akindeyinde Olalekan Samuel a.k.a Purple Dragon, Dragon Lord, Purple D and alot more🙂`;
+    const msg = `He is my creator. The GOAT himself. The best of the best programmer in the entirerity of Olabisi Onabanjo Univerity.. And He is address as Comrade Akindeyinde Olalekan Eritofunmi Samuel a.k.a Purple Dragon, Dragon Lord, Purple D and alot more🙂`;
     appendLog('Jarvis', msg);
     speak(msg);
     return;
   }
 
-  if(text.includes('who am i')){
-    const msg = `You're the creator of jarvis. The GOAT himself. The best of the best programmer in the entirerity of Olabisi Onabanjo Univerity..Goes by the name Comrade Akindeyinde Olalekan Samuel a.k.a Purple Dragon, Dragon Lord, Purple D and alot more🙂`;
-    appendLog('Jarvis', msg);
-    speak(msg);
-    return;
-  }
+  // if(text.includes('who is stephen')){
+  //   const msg = ``;
+  //   appendLog('Jarvis', msg);
+  //   speak(msg);
+  //   return;
+  // }
   
   // System commands
   for (let key in commandMap) {
@@ -217,7 +256,9 @@ function runJarvis() {
   human.interimResults = true;
   human.lang = 'en-US';
 
-  speak("System online. Say hey jarvis to activate me.");// Hello, Purple Dragon.
+  // speak("Hi, i'm jarvis. How can i be of help to you?")
+  speak("Hi, i'm jarvis. How can i be of help to you?");
+  // updateStatus(true)
   
   let transcriptBuffer = '';
 
@@ -234,10 +275,10 @@ function runJarvis() {
     clearTimeout(silenceTimer);
     silenceTimer = setTimeout(() => {
       if (!isAwake) {
-        if (transcriptBuffer.includes('jarvis')) {
+        if (transcriptBuffer.includes('hey jarvis')) {
           isAwake = true;
-          updateStatus();
-          appendLog('Jarvis', 'Hey Jarvis activated. How can I assist you today?');
+          updateStatus(true);
+          appendLog('Jarvis', 'Hey there!');
           speak('Yes? I am listening.');
         }
         return;
@@ -256,7 +297,7 @@ function stopJarvis() {
     human.stopped = true;
     human.stop();
     isAwake = false;
-    updateStatus();
+    updateStatus(false);
     appendLog('System', 'Session terminated.');
   }
 }
