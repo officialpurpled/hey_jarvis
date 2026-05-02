@@ -5,21 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Text based Hey Jarvis  v2.0">
   <title>Hey Jarvis</title>
-  <link rel="stylesheet" href="jarvis_beauty.css">
+  <link rel="stylesheet" href="css/jarvis_beauty.css">
 </head>
 <body>
   <div class="app">
     <!-- the header sec -->
     <header>
-      <div class="nav-back">
-        {->}
+      <div class="nav-back" onclick="window.history()">
+        <img src="image/icons/arr-back.svg" class="icons">
       </div>
-      <div class="title">
-        <h1>Hey Jarvis</h1> 
-        <div class="status">Inactive</div>
+      <div class="profile">
+        <div class="img-holder">
+          <img src="image/me-img.jpg" class="p-avatar" alt="avater">
+        </div>
+        <div class="title">
+          <h2>Chat with jarvis</h2> 
+          <p class="status">Active</p>
+        </div>
       </div>
       <div class="switch" onclick="window.location= '../'">
-        🔁
+        <img src="image/icons/menu-nav.svg" class="icons" alt="">
       </div>
     </header>
 
@@ -27,86 +32,213 @@
     <main>
       <!-- <div class="chat-container"> -->
         <div class="chat-UI" id="chat-UI"> 
-
-          <div class="new-chat">
+          <div id="system">
             📄 Start of new chat with Jarvis
           </div>
 
           <div id="me">
-            <b>You:</b> 
-            <br>
-            hello, jarvis
-            <br> 
-            <span class="time"> 10: 55am</span>
+            <div class="message">
+              <span class="head">
+                <b>You</b>
+                <i class="time">4:25pm</i>
+              </span>
+              <span class="body">
+                Hello jarvis
+              </span>
+            </div>
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
           </div>
 
           <div id="jarvis">
-            <b>Jarvis</b> <br>
-            Hi  how can i be of help?
-            <br> <span class="time"> 10: 55am</span>
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
+            <div class="message">
+              <span class="head">
+                <b>Jarvis</b>
+                <i class="time">4:25pm</i>
+              </span>
+              <span class="body">
+                Hey there, how can i be of help to you?
+              </span>
+            </div>
           </div>
           <div id="me">
-            <b>You</b> 
-            <br>
-            whats todays date please?
-            todays date please?
-             whats todays date please?
-              whats todays date please?
-               whats todays date please?
-                whats todays date please?
+            <div class="message">
+              <span class="head">
+                <b>You</b>
+                <i class="time">4:26pm</i>
+              </span>
+              <span class="body">
+                whats time 
+              </span>
+            </div>
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
+          </div>
 
-               whats todays date please?
-               whats todays date please?
+          <div id="jarvis">
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
+            <div class="message">
+              <span class="head">
+                <b>Jarvis</b>
+                <i class="time">4:26pm</i>
+              </span>
+              <span class="body">
+                The time is 4:26pm. 
+                Is there anything else you want me to do?
+              </span>
+            </div>
+          </div>
+          <div id="me">
+            <div class="message">
+              <span class="head">
+                <b>You</b>
+                <i class="time">4:26pm</i>
+              </span>
+              <span class="body">
+                open vscode
+              </span>
+            </div>
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
+          </div>
 
-             whats to
-              
-            <br> 
-            <span class="time"> 10: 55am</span>
-          </div>
-           <div id="jarvis">
-            <b>Jarvis</b> 
-            <br>
-              Hi  how can i be of help?
-            <br> 
-            <span class="time"> 10: 55am</span>
+          <div id="jarvis">
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
+            <div class="message">
+              <span class="head">
+                <b>Jarvis</b>
+                <i class="time">4:26pm</i>
+              </span>
+              <span class="body">
+                visual studio code opened
+              </span>
+            </div>
           </div>
           <div id="me">
-            aiit, thnak you.
+            <div class="message">
+              <span class="head">
+                <b>You</b>
+                <i class="time">4:26pm</i>
+              </span>
+              <span class="body">
+                calculate 3 by 2
+              </span>
+            </div>
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
           </div>
+
           <div id="jarvis">
-            <b>Jarvis</b> 
-            <br>
-              Hi  how can i be of help?
-            <br> 
-            <span class="time"> 10: 55am</span>
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
+            <div class="message">
+              <span class="head">
+                <b>Jarvis</b>
+                <i class="time">4:26pm</i>
+              </span>
+              <span class="body">
+                multiplication of 3 and 2 is 6.
+              </span>
+            </div>
           </div>
           <div id="me">
-            whats todays date please?
+            <div class="message">
+              <span class="head">
+                <b>You</b>
+                <i class="time">4:27pm</i>
+              </span>
+              <span class="body">
+                open xwiz app
+              </span>
+            </div>
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
           </div>
+
           <div id="jarvis">
-             <b>Jarvis</b> 
-             <br>
-             todays is monday, 14 august 2030!
-            <br> 
-            <span class="time"> 10: 55am</span>
+            <div class="c-avatar-holder">
+             <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
+            <div class="message">
+              <span class="head">
+                <b>Jarvis</b>
+                <i class="time">4:27pm</i>
+              </span>
+              <span class="body">
+                Unable to open app, kindly confirm if the app is availably in your desktop
+              </span>
+            </div>
+          </div>
+          <div id="me">
+            <div class="message">
+              <span class="head">
+                <b>You</b>
+                <i class="time">4:43pm</i>
+              </span>
+              <span class="body">
+                guess the programming language with code syntax beloe <br>
+                let human;
+                let isSpeaking = false; <br>
+                let isAwake = false; <br>
+                let silenceTimer = null; <br>
+                let lastRequestTime = 0;
+                let memory = []; 
+              </span>
+            </div>
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
+          </div>
+
+          <div id="jarvis">
+            <div class="c-avatar-holder">
+              <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+            </div>
+            <div class="message">
+              <span class="head">
+                <b>Jarvis</b>
+                <i class="time">4:43pm</i>
+              </span>
+              <span class="body">
+                The giving code snippet is a javascript code of declearing variable using let keyword  
+              </span>
+            </div>
+            
           </div>
         </div>
       <!-- </div> -->
       
-      <!-- <div class="form-wrapper"> -->
+      <div class="form-wrapper">
         <form>
-          <input type="text" 
+          <button id="addFileBtn" class="addFileBtn">
+            ✝️ 
+          </button>
+          <!-- <input type="text" 
             class="prompt-field" 
             id="prompt-field" 
             placeholder="Enter your prompt here"  
             value="qwertyggggggggggggggggggggggggggggggggggggggggggg"
-          >
-          <button id="sendBtn">
-            SEND 
-            <i class="fa-fa-home"\>
+          > -->
+          <textarea name="prompt-field" id="prompt-field">
+          </textarea>
+          <button id="sendBtn" class="sendBtn">
+            📤 
           </button>
         </form>
-      <!-- </div> -->
+      </div>
     </main>
   
     <!-- Bottom -->
