@@ -146,7 +146,6 @@ main{
   flex-direction: column;
   padding: 10px;
   max-width: 200px;
-  text-align: justify;
   font-size: 12px;
   border-radius: 15px;
 }
