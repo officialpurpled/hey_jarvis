@@ -66,9 +66,8 @@ header div{
   left: 140px;
   font-size: 11px;
   margin: 0;
-  /* width: 0; */
   height: 0;
-  color: green;
+  color: red;
   /* border: solid 1px; */
 }
 
@@ -90,8 +89,8 @@ header div{
   /* margin-right: ; */
 }
 .switch{
-  margin-right: 10px;
-  position: relative;
+  margin-right: 18px;
+  /* position: relative; */
   /* top: 5px; */
 }
 
@@ -155,7 +154,8 @@ main{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1px;
+  margin-bottom: 4px;
+  gap: 5px;
 }
 .time{
   font-size: 9px; 
@@ -237,6 +237,21 @@ button{
 .sendBtn{
   background-color: black;
   color: white;
+}
+
+
+.nav{
+  background-color: white;
+  width: 100%;
+  height: 5px;
+  color: rgb(69, 78, 78);
+  text-align: center;
+}
+.nav p{
+  font-size: xx-small;
+  position: relative;
+  font-weight: 700;
+  bottom: 16px;
 }
 
 
