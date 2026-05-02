@@ -15,6 +15,20 @@ body{
   align-items: center;
   height: 100vh;
 }
+.switch{
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  padding: 5px;
+  margin: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+
+  cursor: pointer;
+}
 .dashboard{
   text-align: center;
   margin: 20px 0 10px 0;
