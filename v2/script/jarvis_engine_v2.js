@@ -1,4 +1,4 @@
-import {base_uri, api_key, method} from './api.js'
+import {base_uri, api_key, method} from '../lib/api.js'
 
 let isActive= true
 let memory = [];
@@ -127,7 +127,7 @@ function createMsg(from, text){
         <i class="time">${time}</i>
       </div>
       <div class="body">
-        ${text} 
+        DOM(${text}) 
       </div>
     </div>
   `
@@ -163,13 +163,13 @@ function loadMsg(from, text, time){
   //message body component 
   const msgSec = `
     <div class="message">
-      <span class="head">
+      <div class="head">
         <b>${from}</b>
-        <i class="time">${time}</i>
-      </span>
-      <span class="body">
-        ${text} 
-      </span>
+        <i class="time">${time.split(':')[0]}:${time.split(':')[1]}</i>
+      </div>
+      <div class="body">
+        ${DOMPurify.sanitize(marked.parse(text))} 
+      </div>
     </div>
   `
   // build chat

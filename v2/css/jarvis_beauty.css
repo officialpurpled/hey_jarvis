@@ -118,7 +118,7 @@ main{
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: hidden;
   flex: 1fr;
   scrollbar-width: none;
   color: black;
