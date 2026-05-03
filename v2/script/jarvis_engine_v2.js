@@ -1,7 +1,8 @@
 let isActive= true
 let memory = [];
 
-const MAX_MEMORY_ENTRIES = 20;
+
+const MAX_MEMORY_ENTRIES = 10;
 
 const thepage = document.querySelector('.chat-UI');
 const inputField = document.querySelector('#prompt-field')
@@ -48,6 +49,19 @@ const commandMap = {
 //   (event) => handleError(event), false
 // );
 
+function storeMemory() {
+  const oldChat = JSON.parse(localStorage.getItem('chats')) || []
+  const newChat = [
+    ...oldChat,
+    ...memory
+  ]
+
+  console.log(newChat)
+  localStorage.setItem('chats', JSON.stringify(newChat))
+
+  memory = []
+}
+
 function autoscroll() {
   if (!isActive){
     isActive = true
@@ -64,9 +78,10 @@ function liveStatus(param){
   statusElem.style.color = `${param ?'green' :'red'}`
 }
 
-//Adds Message
+//Adds new Message
 function createMsg(from, text){
   const user = from === 'You'
+  const time = new Date().toLocaleTimeString()
   
   //img component 
   const img = `
@@ -79,7 +94,7 @@ function createMsg(from, text){
     <div class="message">
       <span class="head">
         <b>${from}</b>
-        <i class="time">${new Date().toLocaleTimeString()}</i>
+        <i class="time">${time}</i>
       </span>
       <span class="body">
         ${text} 
@@ -94,32 +109,70 @@ function createMsg(from, text){
       ${user ? img : ''}
     </div>
   `
+  addMemory(
+    user? 'user': 'assistant',
+    text,
+    time
+  )
   clearField();
   autoscroll();
 }
 
+//Adds Old Message
+function loadMsg(from, text, time){
+  const user = from === 'You'
+  
+  //img component 
+  const img = `
+    <div class="c-avatar-holder">
+      <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+    </div>
+  `
+  //message body component 
+  const msgSec = `
+    <div class="message">
+      <span class="head">
+        <b>${from}</b>
+        <i class="time">${time}</i>
+      </span>
+      <span class="body">
+        ${text} 
+      </span>
+    </div>
+  `
+  // build chat
+  thepage.innerHTML += `
+    <div id="${user? 'me': 'jarvis'}">
+      ${user ? '' : img}
+      ${msgSec}
+      ${user ? img : ''}
+    </div>
+  `
+  autoscroll();
+}
 //prompt handler
 function handlePrompt(text) {
+  const time = new Date().toLocaleTimeString()
+
   if (/bye|goodbye|exit|stop|shut down/.test(text)) {
     const msg = 'Goodbye, Dragon Lord!';
     createMsg('Jarvis', msg)
-    addMemory('assistant', msg);
     isActive = false
     liveStatus(false)
     return
   }
   // Time / Date
   if (text.includes('time')) {
-    const msg = `The time is ${new Date().toLocaleTimeString()}`;
+    const msg = `The time is ${time}`;
     createMsg('Jarvis', msg)
-     addMemory('assistant', msg);
+    // addMemory('assistant', msg, time);
     return
   }
 
   if (text.includes('date')) {
     const msg = `Today is ${new Date().toLocaleDateString()}`;
     createMsg('Jarvis', msg)
-    addMemory('assistant', msg)
+    // addMemory('assistant', msg, time);
     return
   }
 
@@ -130,7 +183,7 @@ function handlePrompt(text) {
     ) {
     const msg = `You mean Femi Oduyomi, he is currently a undergraduate Micro Biology student of olabisi onabanjo university`;
     createMsg('Jarvis', msg)
-    addMemory('assistant', msg);
+    // addMemory('assistant', msg, time);
     return
   }
 
@@ -143,30 +196,31 @@ function handlePrompt(text) {
     ) {
     const msg = `He is my creator. The GOAT himself. The best of the best programmer in the entirerity of Olabisi Onabanjo Univerity.. And He is address as Comrade Akindeyinde Olalekan Eritofunmi Samuel a.k.a Purple Dragon, Dragon Lord, Purple D and alot more🙂`;
     createMsg('Jarvis', msg)
-    addMemory('assistant', msg);
+    // addMemory('assistant', msg, time);
     return
   }
 
   if(text.includes('who is stephen')){
     const msg = `Information of the following user is a big deal`;
     createMsg('Jarvis', msg)
-    addMemory('assistant', msg);
+    // addMemory('assistant', msg, time);
     return
   }
 
   // System commands
-  // for (let key in commandMap) {
-  //   if (text.includes(key)) {
-  //     createMsg('Sytem',`Opening ${commandMap[key]}`);
-  //     aiAgent(commandMap[key]);
-  //     return;
-  //   }
-  // }
+  for (let key in commandMap) {
+    if (text.includes(key)) {
+      createMsg('Sytem',`Opening ${commandMap[key]}`);
+      // aiAgent(commandMap[key]);
+      return;
+    }
+  }
 
   // aiAgent(text);
   
   // fall back response
   createMsg('Jarvis', "Unable to respond to your message")
+  // addMemory('assistant', "Unable to respond to your message", time);
 }
 
 // load state //auto
@@ -175,25 +229,29 @@ document.addEventListener('DOMContentLoaded', (e) => {
     statusElem.innerText = "loading..." 
     statusElem.style.color = 'white'
   },
-    1500
+    2000
   )
-  
+
+  loadOldChat()
   autoscroll()
+
   setTimeout(
     ()=>{
       liveStatus(true)
     },
-    2800
+    4000
   ) 
 });
+
 
 //change state //manual
 document.querySelector('#sendBtn').addEventListener('click', (e) => {
   e.preventDefault()
+  const time = new Date().toLocaleTimeString()
 
   const text = inputField.value
   console.log(text)
-  addMemory('user', text);
+  // addMemory('user', text, time);
   
   // user messagge
   createMsg('You', text)
@@ -202,13 +260,41 @@ document.querySelector('#sendBtn').addEventListener('click', (e) => {
   handlePrompt(text)
 })
 
-function addMemory(role, content) {
-  memory.push({ role, content });
+function addMemory(role, content, time) {
+  memory.push({ role, content, time });
   if (memory.length > MAX_MEMORY_ENTRIES) {
-    memory.splice(0, memory.length - MAX_MEMORY_ENTRIES);
+
+    storeMemory()
+    memory = []
+    // memory.splice(0, memory.length - MAX_MEMORY_ENTRIES);
   }
+}
+
+function loadOldChat () {
+  const prevChat = JSON.parse(localStorage.getItem('chats')) || []
+
+  if(!prevChat) return
+
+  prevChat.forEach(chat => {
+    const ai = chat.role === 'assistant'
+    const sender = ai? 'Jarvis': 'You'
+
+    loadMsg(sender, chat.content, chat.time)
+  });
 }
 
 function clearField() {
   inputField.value = ''
 }
+
+function dothisNow(){
+  const prevChat = JSON.parse(localStorage.getItem('chats'))
+
+  prevChat.forEach((chat, i) => {
+    Object.assign(chat, {time: `5:28:${i}`})
+  });
+
+  console.log(prevChat)
+  localStorage.setItem('chats', JSON.stringify(prevChat))
+}
+// dothisNow()
