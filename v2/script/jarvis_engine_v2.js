@@ -52,7 +52,7 @@ const commandMap = {
 // );
 
 function aiAgent(prompt) { //command or text
-  fetch(api_key, {
+  fetch(base_uri, {
     method: method,
     headers: { 
       // 'Authorization': `Bearer ${token}`,
@@ -127,7 +127,7 @@ function createMsg(from, text){
         <i class="time">${time}</i>
       </div>
       <div class="body">
-        DOM(${text}) 
+        ${DOMPurify.sanitize(marked.parse(text))} 
       </div>
     </div>
   `
