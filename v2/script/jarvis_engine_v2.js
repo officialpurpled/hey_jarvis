@@ -1,3 +1,5 @@
+import {base_uri, api_key, method} from './api.js'
+
 let isActive= true
 let memory = [];
 
@@ -50,25 +52,29 @@ const commandMap = {
 // );
 
 function aiAgent(prompt) { //command or text
-  fetch('https://jarvis-brain-api.onrender.com/api/jarvis', {
-    method: 'POST',
+  fetch(api_key, {
+    method: method,
     headers: { 
       // 'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json' 
     },
     body: JSON.stringify({ 
-      prompt, 
+      command: prompt, 
       memory 
     })
   })
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) {
+      throw new Error('There is an annomally within the system. Contact the support team');
+    }
+    return res.json();
+  })
   .then(data => {
-    createMsg('You', prompt)
     createMsg('Jarvis', data.message);
   })
   .catch((err) => {
     createMsg('System', err.message);
-    console.log('server failed \n', err)
+    console.log(err)
   });
 }
 
@@ -116,13 +122,13 @@ function createMsg(from, text){
   //message body component 
   const msgSec = `
     <div class="message">
-      <span class="head">
+      <div class="head">
         <b>${from}</b>
         <i class="time">${time}</i>
-      </span>
-      <span class="body">
+      </div>
+      <div class="body">
         ${text} 
-      </span>
+      </div>
     </div>
   `
 
