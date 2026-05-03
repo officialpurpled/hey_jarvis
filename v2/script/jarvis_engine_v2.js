@@ -67,7 +67,7 @@ function aiAgent(prompt) { //command or text
     createMsg('Jarvis', data.message);
   })
   .catch((err) => {
-    createMsg('Server', err.message);
+    createMsg('System', err.message);
     console.log('server failed \n', err)
   });
 }
@@ -145,14 +145,15 @@ function createMsg(from, text){
 
 //Adds Old Message
 function loadMsg(from, text, time){
-  const user = from === 'You'
+  const user = from === 'You';
   
   //img component 
   const img = `
     <div class="c-avatar-holder">
-      <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+      <img src="image/${user? 'me-img.jpg': 'avatar.jpg'}" alt="icons" class="c-avatar">
     </div>
   `
+
   //message body component 
   const msgSec = `
     <div class="message">
@@ -208,7 +209,6 @@ function handlePrompt(text) {
     ) {
     const msg = `You mean Femi Oduyomi, he is currently a undergraduate Micro Biology student of olabisi onabanjo university`;
     createMsg('Jarvis', msg)
-    // addMemory('assistant', msg, time);
     return
   }
 
@@ -221,21 +221,19 @@ function handlePrompt(text) {
     ) {
     const msg = `He is my creator. The GOAT himself. The best of the best programmer in the entirerity of Olabisi Onabanjo Univerity.. And He is address as Comrade Akindeyinde Olalekan Eritofunmi Samuel a.k.a Purple Dragon, Dragon Lord, Purple D and alot more🙂`;
     createMsg('Jarvis', msg)
-    // addMemory('assistant', msg, time);
     return
   }
 
   if(text.includes('who is stephen')){
     const msg = `Information of the following user is a big deal`;
     createMsg('Jarvis', msg)
-    // addMemory('assistant', msg, time);
     return
   }
 
   // System commands
   for (let key in commandMap) {
     if (text.includes(key)) {
-      createMsg('Sytem',`Opening ${commandMap[key]}`);
+      // createMsg('Sytem',`Opening ${commandMap[key]}`);
       aiAgent(commandMap[key]);
       return;
     }
@@ -244,8 +242,6 @@ function handlePrompt(text) {
   // fall back response
   aiAgent(text);
   
-  // createMsg('Jarvis', "Unable to respond to your message")
-  // addMemory('assistant', "Unable to respond to your message", time);
 }
 
 // load state //auto
