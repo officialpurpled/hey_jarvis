@@ -49,7 +49,7 @@ const commandMap = {
 //   (event) => handleError(event), false
 // );
 
-function aiAgent(command) {
+function aiAgent(prompt) { //command or text
   fetch('https://jarvis-brain-api.onrender.com/api/jarvis', {
     method: 'POST',
     headers: { 
@@ -57,21 +57,18 @@ function aiAgent(command) {
       'Content-Type': 'application/json' 
     },
     body: JSON.stringify({ 
-      command, 
+      prompt, 
       memory 
     })
   })
   .then(res => res.json())
   .then(data => {
+    createMsg('You', prompt)
     createMsg('Jarvis', data.message);
-    
-    // addMemory('user', command);
-    // addMemory('assistant', data.message);
-    // appendLog('Jarvis', data.message);
-    // speak(data.message);
   })
   .catch((err) => {
-      console.log('server failed \n', err)
+    createMsg('Server', err.message);
+    console.log('server failed \n', err)
   });
 }
 
@@ -244,10 +241,10 @@ function handlePrompt(text) {
     }
   }
 
-  // aiAgent(text);
-  
   // fall back response
-  createMsg('Jarvis', "Unable to respond to your message")
+  aiAgent(text);
+  
+  // createMsg('Jarvis', "Unable to respond to your message")
   // addMemory('assistant', "Unable to respond to your message", time);
 }
 
