@@ -49,6 +49,32 @@ const commandMap = {
 //   (event) => handleError(event), false
 // );
 
+function aiAgent(command) {
+  fetch('https://jarvis-brain-api.onrender.com/api/jarvis', {
+    method: 'POST',
+    headers: { 
+      // 'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify({ 
+      command, 
+      memory 
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    createMsg('Jarvis', data.message);
+    
+    // addMemory('user', command);
+    // addMemory('assistant', data.message);
+    // appendLog('Jarvis', data.message);
+    // speak(data.message);
+  })
+  .catch((err) => {
+      console.log('server failed \n', err)
+  });
+}
+
 function storeMemory() {
   const oldChat = JSON.parse(localStorage.getItem('chats')) || []
   const newChat = [
@@ -86,9 +112,10 @@ function createMsg(from, text){
   //img component 
   const img = `
     <div class="c-avatar-holder">
-      <img src="image/me-img.jpg" alt="icons" class="c-avatar">
+      <img src="image/${user ?'me-img.jpg' :'avatar.jpg'}" alt="icons" class="c-avatar">
     </div>
   `
+
   //message body component 
   const msgSec = `
     <div class="message">
@@ -101,6 +128,7 @@ function createMsg(from, text){
       </span>
     </div>
   `
+
   // build chat
   thepage.innerHTML += `
     <div id="${user? 'me': 'jarvis'}">
@@ -158,7 +186,7 @@ function handlePrompt(text) {
     const msg = 'Goodbye, Dragon Lord!';
     createMsg('Jarvis', msg)
     isActive = false
-    liveStatus(false)
+    liveStatus(false);
     return
   }
   // Time / Date
@@ -211,7 +239,7 @@ function handlePrompt(text) {
   for (let key in commandMap) {
     if (text.includes(key)) {
       createMsg('Sytem',`Opening ${commandMap[key]}`);
-      // aiAgent(commandMap[key]);
+      aiAgent(commandMap[key]);
       return;
     }
   }
@@ -242,7 +270,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
     4000
   ) 
 });
-
 
 //change state //manual
 document.querySelector('#sendBtn').addEventListener('click', (e) => {
