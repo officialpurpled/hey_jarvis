@@ -1,14 +1,14 @@
 import { autoscroll, liveStatus, clearField, statusElem, thepage, inputField, showToast } from './component/updateHandler.js';
-import { createMsg, loadMsg } from './component/renderMessage.js';
+import { createMsg, formatCodeMsg, loadMsg } from './component/renderMessage.js';
 import { handlePrompt } from './component/responseHandler.js';
 
 marked.setOptions({
-  highlight: function(code, lang) {
-    return hljs.highlightAuto(code).value;
-  }
+  breaks: true,
+  gfm: true
 });
 
 lucide.createIcons()
+
 export let isActive= true
 export let memory = JSON.parse(localStorage.getItem('chats'))
 
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
   
   setTimeout(()=>{loadOldChat()},2500)
   autoscroll()
+  formatCodeMsg()
   setTimeout( ()=>{liveStatus(true) },3200) 
 });
 
@@ -79,6 +80,7 @@ function loadOldChat() {
     const oldChat = JSON.parse(localStorage.getItem('chats'));
 
     if (!oldChat.messages || oldChat.messages.length === 0) {
+      showToast('No previous chat found. Starting fresh.')
       console.log('No previous chat found.');
       return;
     }
@@ -89,10 +91,11 @@ function loadOldChat() {
       loadMsg(sender, chat.content, chat.time);
     });
   } catch (error) {
-    localStorage.setItem('chats', JSON.stringify({
-        userId: 'user-' + crypto.randomUUID(),
-        messages: [],
-      }))
+    // localStorage.setItem('chats', JSON.stringify({
+    //     userId: 'user-' + crypto.randomUUID(),
+    //     messages: [],
+    //   }))
+    showToast('Error loading old chat. Starting fresh.')
     console.error('Error loading old chat:', error);
   }
 }

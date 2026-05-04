@@ -210,8 +210,8 @@ main{
   margin: 5px 0;
 }
 .message pre {
-  background: #1e1e1e;
-  color: #fff;
+  background: #d8cccc;
+  color: #171414;
   padding: 10px;
   border-radius: 8px;
   overflow-x: auto;
@@ -219,7 +219,7 @@ main{
   font-size: 12px;
 }
 .message p code {
-  background: rgba(0,0,0,0.1);
+  background: rgba(205, 191, 191, 0.603);
   padding: 2px 5px;
   border-radius: 4px;
   font-size: 12px;

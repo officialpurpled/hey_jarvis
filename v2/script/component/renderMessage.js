@@ -1,28 +1,30 @@
 import { clearField, autoscroll, addMemory } from "./updateHandler.js"
 
 const chatBox = document.querySelector('.chat-UI')
+const bodyDiv = document.querySelector('.message .body')
 
 //format message
-function formatCodeMsg(bodyDiv) {
-bodyDiv.querySelectorAll("pre").forEach(pre => {
-  // avoid duplicate buttons
-  if (pre.querySelector(".copy-btn")) return;
+export function formatCodeMsg() {
+  bodyDiv.querySelectorAll("pre").forEach(pre => {
+    // avoid duplicate buttons
+    if (pre.querySelector(".copy-btn")) return;
 
-  const button = document.createElement("button");
-  button.textContent = "Copy";
-  button.className = "copy-btn";
+    const button = document.createElement("button");
+    button.textContent = "Copy";
+    button.className = "copy-btn";
 
-  button.onclick = () => {
-    const code = pre.querySelector("code").innerText;
-    navigator.clipboard.writeText(code);
+    button.onclick = () => {
+      const code = pre.querySelector("code").innerText;
+      navigator.clipboard.writeText(code);
 
-    button.textContent = "Copied!";
-    setTimeout(() => button.textContent = "Copy", 1500);
-  };
+      button.textContent = "Copied!";
+      setTimeout(() => button.textContent = "Copy", 1500);
+    };
 
-  pre.style.position = "relative";
-  pre.appendChild(button);
-});}
+    pre.style.position = "relative";
+    pre.appendChild(button);
+  });
+}
 
 //Adds new Message
 export function createMsg(from, text){
@@ -51,7 +53,6 @@ export function createMsg(from, text){
       ${bodyDiv}
     </div>
   `
-  formatCodeMsg(bodyDiv)
   // build chat
   chatBox.innerHTML += `
     <div class="${user? 'me': 'jarvis'}">
@@ -95,8 +96,7 @@ export function loadMsg(from, text, time){
       ${bodyDiv}
     </div>
   `
-  formatCodeMsg(bodyDiv)
-  
+   
   // build chat
   chatBox.innerHTML += `
     <div class="${user? 'me': 'jarvis'}">

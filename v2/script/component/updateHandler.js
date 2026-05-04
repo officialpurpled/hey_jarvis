@@ -30,8 +30,8 @@ export function addMemory(role, content, time) {
   chat.push({ role, content, time });
 
 
-  if (memory.messages.length > MAX_MEMORY_ENTRIES) {
-    memory.splice(0, memory.messages.length - MAX_MEMORY_ENTRIES);
+  if (chat.length > MAX_MEMORY_ENTRIES) {
+    chat.splice(0, chat.length - MAX_MEMORY_ENTRIES);
   }
   localStorage.setItem('chats', JSON.stringify(memory))
 }
