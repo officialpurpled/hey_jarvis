@@ -2,11 +2,24 @@ import { autoscroll, liveStatus, clearField, statusElem, thepage, inputField, sh
 import { createMsg, loadMsg } from './component/renderMessage.js';
 import { handlePrompt } from './component/responseHandler.js';
 
+marked.setOptions({
+  highlight: function(code, lang) {
+    return hljs.highlightAuto(code).value;
+  }
+});
+
 lucide.createIcons()
 export let isActive= true
-
 export let memory = JSON.parse(localStorage.getItem('chats'))
 
+//control header
+const header = document.querySelector("header");
+
+window.visualViewport.addEventListener("resize", () => {
+  header.style.top = "0px";
+});
+
+//
 
 // load state //auto
 document.addEventListener('DOMContentLoaded', (e) => {
