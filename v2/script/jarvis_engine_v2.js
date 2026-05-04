@@ -114,7 +114,7 @@ function createMsg(from, text){
   
   //img component 
   const img = `
-    <div class="c-avatar-holder">
+    <div class="${user? 'me': 'jarvis'}-avatar-holder">
       <img src="image/${user ?'me-img.jpg' :'avatar.jpg'}" alt="icons" class="c-avatar">
     </div>
   `
@@ -124,7 +124,7 @@ function createMsg(from, text){
     <div class="message">
       <div class="head">
         <b>${from}</b>
-        <i class="time">${time}</i>
+        <i class="time">${time.split(':')[0]}:${time.split(':')[1]}</i>
       </div>
       <div class="body">
         ${DOMPurify.sanitize(marked.parse(text))} 
@@ -134,7 +134,7 @@ function createMsg(from, text){
 
   // build chat
   thepage.innerHTML += `
-    <div id="${user? 'me': 'jarvis'}">
+    <div class="${user? 'me': 'jarvis'}">
       ${user ? '' : img}
       ${msgSec}
       ${user ? img : ''}
@@ -155,7 +155,7 @@ function loadMsg(from, text, time){
   
   //img component 
   const img = `
-    <div class="c-avatar-holder">
+    <div class="${user? 'me': 'jarvis'}-avatar-holder">
       <img src="image/${user? 'me-img.jpg': 'avatar.jpg'}" alt="icons" class="c-avatar">
     </div>
   `
@@ -174,7 +174,7 @@ function loadMsg(from, text, time){
   `
   // build chat
   thepage.innerHTML += `
-    <div id="${user? 'me': 'jarvis'}">
+    <div class="${user? 'me': 'jarvis'}">
       ${user ? '' : img}
       ${msgSec}
       ${user ? img : ''}
@@ -254,7 +254,7 @@ function handlePrompt(text) {
 document.addEventListener('DOMContentLoaded', (e) => {
   setTimeout(()=>{
     statusElem.innerText = "loading..." 
-    statusElem.style.color = 'white'
+    statusElem.style.color = 'black'
   },
     2000
   )
@@ -273,6 +273,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 //change state //manual
 document.querySelector('#sendBtn').addEventListener('click', (e) => {
   e.preventDefault()
+
   const time = new Date().toLocaleTimeString()
 
   const text = inputField.value
@@ -297,8 +298,9 @@ function addMemory(role, content, time) {
 }
 
 function loadOldChat () {
+  
   const prevChat = JSON.parse(localStorage.getItem('chats')) || []
-
+  
   if(!prevChat) return
 
   prevChat.forEach(chat => {

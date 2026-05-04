@@ -1,40 +1,47 @@
+
 body{
   background-color:rgba(103, 98, 98, 0.86);
   color: white;
   align-items: center;
   scrollbar-width: none;
+
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .app{
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 96vh;
+  height: 100dvh;
   margin: 0 auto;
-  min-width: 380px;
-  max-width: 380px;
-  border: 2px solid white;
+  min-width: 400px;
+  max-width: 480px;
+
   border-radius: 10px;
 
   background-color: aliceblue;
   overflow: hidden;
 }
 header {
-  background-color: black;
+  background-color: rgb(224, 224, 224);  
   width: 100%;
-  height: 70px;
+  /* height: 10%; */
+  padding: 10px 0;
   display: flex;
   font-size: x-small;
   justify-content: center;
   column-gap: 11px;
   align-items: center;
+  color: black;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.498);
 }
-header div{
-  /* border: 1px solid; */
-}
+/* header div{
+   border: 1px solid; 
+} */
 .profile{
   display: flex;
   /* align-items: center; */
-  gap: 15px;
+  gap: 25px;
   flex-grow: 1;
 }
 .p-avatar{
@@ -44,7 +51,7 @@ header div{
   border-radius: 50px;
   width: 35px;
   height: 35px;
-  border: 1px ridge white;
+  border: 2px double rgb(0, 0, 0);
   overflow: hidden;
 }
 .title{
@@ -62,8 +69,8 @@ header div{
 .status{
   /* border: 1px solid; */
   position: relative;
-  bottom: 15px;
-  left: 140px;
+  bottom: 16px;
+  left: 160px;
   font-size: 11px;
   margin: 0;
   height: 0;
@@ -72,7 +79,7 @@ header div{
 }
 
 .icons{
-  width: 18px;
+  width: 20px;
   flex: 1 0 auto;
 }
 .nav-back, 
@@ -85,13 +92,11 @@ header div{
   justify-content: center; 
 }
 .nav-back{
-  margin-left: 15px;
-  /* margin-right: ; */
+  margin-left: 18px;
+  margin-right: 10px;
 }
 .switch{
-  margin-right: 18px;
-  /* position: relative; */
-  /* top: 5px; */
+  margin-right: 19px
 }
 
 main{
@@ -99,19 +104,20 @@ main{
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 90%; /* spag */
+  height: 90%; 
+  flex-grow: 1;
   width: 100%;
   background-color: rgb(222, 222, 222);
 }
 
-#system{
+.system{
   /* display: none; */
   position: relative;
-  left: 90px;
+  left: 27%;
   font-size: small;  
   margin-top: 5px;
   align-items: center;
-  align-items: center;
+  color: black;
 }
 
 .chat-UI{
@@ -119,25 +125,22 @@ main{
   flex-direction: column;
   width: 100%;
   overflow-x: hidden;
-  flex: 1fr;
   scrollbar-width: none;
   color: black;
-  margin-bottom:2px;
   border-radius: 10px;
 }
-#me,
-#jarvis{
+.me,
+.jarvis{
   display: flex;
   justify-content: center;
   align-items: end;
-  /* border: grey 2px solid; */
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
-#me{ 
+.me{ 
   align-self: flex-end; 
   margin-right: 5px;
 }
-#jarvis{
+.jarvis{
    align-self: flex-start; 
    margin-left: 5px;
 }
@@ -145,7 +148,7 @@ main{
   display: flex;
   flex-direction: column;
   padding: 10px;
-  max-width: 200px;
+  max-width: 230px;
   font-size: 12px;
   border-radius: 15px;
 }
@@ -153,39 +156,47 @@ main{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
   gap: 5px;
+}
+.message p{
+  margin-top: 4px ;
+  margin-bottom: 1px;
 }
 .time{
   font-size: 9px; 
 }
-#jarvis .time{
-  color: aliceblue;
+.jarvis .time{
+  color: rgb(255, 255, 255);
 }
-#me .time{
-  color: black;
+.me .time{
+  color: rgb(0, 0, 0);
 }
-#system {
-  color: blue;
-}
-.c-avatar-holder{
-  border: 1px solid;
+
+.c-avatar-holder,
+.me-avatar-holder,
+.jarvis-avatar-holder{
+  border: 1.5px solid;
   width: 30px;
   height: 30px;
   border-radius: 100%;
   overflow: hidden;
 }
+.me-avatar-holder{
+  color: rgb(0, 0, 0);
+}
+.jarvis-avatar-holder{
+  color: rgb(255, 255, 255);
+}
 .c-avatar{
   width: 100%;
 }
-#me > .message{
+.me > .message{
   margin-right: 2px;
   border-bottom-right-radius: 2px;
   background-color: rgb(230, 230, 230);
   color: black;
-  /* margin-top: 5px; */
 }
-#jarvis > .message{
+.jarvis > .message{
   margin-left: 2px;
   border-radius: 10px;
   border-bottom-left-radius: 1px;
@@ -201,12 +212,13 @@ main{
 form{
   display: flex;
   justify-content: center;
-  align-items: center;
-  position: relative;
-  /* bottom: -5px; */
-  max-height: 80px ;
-  /* margin-bottom: 5px; */
-  gap: 5px;
+  align-items: end;
+  max-height: 200px ;
+  height: 15%;
+  width: 95%;
+  margin-top: 0;
+  margin-bottom: 15px;
+  column-gap: 15px;
 }
 textarea{
   flex-grow: 1;
@@ -240,29 +252,31 @@ button{
 
 
 .nav{
-  background-color: white;
+  background-color: rgb(224, 224, 224);
   width: 100%;
-  height: 5px;
-  color: rgb(69, 78, 78);
-  text-align: center;
-}
+  /* height: 5px;  */
+} 
+
 .nav p{
+  margin: 0;
+  color: rgb(69, 78, 78); 
+  text-align: center;
   font-size: xx-small;
   position: relative;
   font-weight: 700;
-  bottom: 16px;
+  bottom: 9px;
 }
 
 
 
-.dashboard{
+/* .dashboard{
   text-align: center;
   /* margin: 20px 0 10px 0; */
 
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
+  /* display: flex; */
+  /* align-items: center; */
+  /* gap: 10px; */
+  /* justify-content: center;
 }
 .result{
   text-align: left;
@@ -289,4 +303,4 @@ button{
   padding: 10px; 
   border-radius: 10px; 
   max-width: 70%;
-}
+} */ 
