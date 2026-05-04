@@ -40,6 +40,18 @@ const commandMap = {
   'open onenote': 'onenote',
   'open teams': 'teams'
 };
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerText = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => 
+    t.classList.remove('show'), 
+    3000
+  );
+}
+
 // inputField.addEventListener('input', (e)=>{
 //   liveStatus(true)
 //   console.log(e)
@@ -74,7 +86,7 @@ function aiAgent(prompt) { //command or text
     createMsg('Jarvis', data.message);
   })
   .catch((err) => {
-    createMsg('System', "Slow/Poor internet connection. Please move to a .. area");
+    createMsg('System', "Slow/Poor internet connection. Please move to a secluded area");
     console.log(err)
   });
 }
@@ -194,18 +206,32 @@ function handlePrompt(text) {
     liveStatus(false);
     return
   }
+    if (
+      text.toLowerCase() === 'hi'||
+      text.toLowerCase() ==='hello'||
+      text.toLowerCase() === 'sup'|| 
+      text.toLowerCase() === 'wassup' ||
+      text.toLowerCase() === 'hey jarvis'||
+      text.toLowerCase() === 'hello jarvis'|| 
+      text.toLowerCase() === 'wassup jarvis' ||
+      text.toLowerCase() === 'xup jarvis'|| 
+      text.toLowerCase() === 'sup jarvis'
+    ){
+    const msg = 'Hey there, how can i be of help to you? 😌';
+    createMsg('Jarvis', msg)
+    liveStatus(true)
+    return
+  }
   // Time / Date
   if (text.includes('time')) {
     const msg = `The time is ${time}`;
     createMsg('Jarvis', msg)
-    // addMemory('assistant', msg, time);
     return
   }
 
   if (text.includes('date')) {
     const msg = `Today is ${new Date().toLocaleDateString()}`;
     createMsg('Jarvis', msg)
-    // addMemory('assistant', msg, time);
     return
   }
 
@@ -254,20 +280,25 @@ function handlePrompt(text) {
 // load state //auto
 document.addEventListener('DOMContentLoaded', (e) => {
   setTimeout(()=>{
-    statusElem.innerText = "loading..." 
+    statusElem.innerText = "Updating..." 
     statusElem.style.color = 'black'
   },
     2000
   )
 
-  loadOldChat()
   autoscroll()
+  loadOldChat()
+  // const vv = loadOldChat()
+  // if (!vv) {
+  //   liveStatus(true)
+  //   showToast('No previously saved chat found')
+  // }
 
   setTimeout(
     ()=>{
       liveStatus(true)
     },
-    4000
+    4200
   ) 
 });
 
@@ -288,6 +319,16 @@ document.querySelector('#sendBtn').addEventListener('click', (e) => {
   handlePrompt(text)
 })
 
+document.querySelector('#addFileBtn').addEventListener('click', (e) => {
+  e.preventDefault()
+  const msg = 'Feature coming soon..'
+  showToast(msg)
+})
+document.querySelector('#notisBtn').addEventListener('click', (e) => {
+  e.preventDefault()
+  const msg = 'Feature coming soon..'
+  showToast(msg)
+})
 function addMemory(role, content, time) {
   memory.push({ role, content, time });
   if (memory.length > MAX_MEMORY_ENTRIES) {
@@ -299,17 +340,18 @@ function addMemory(role, content, time) {
 }
 
 function loadOldChat () {
-  
   const prevChat = JSON.parse(localStorage.getItem('chats')) || []
   
-  if(!prevChat) return
+  if(!prevChat || prevChat == []) return
 
   prevChat.forEach(chat => {
     const ai = chat.role === 'assistant'
     const sender = ai? 'Jarvis': 'You'
 
-    loadMsg(sender, chat.content, chat.time)
+  loadMsg(sender, chat.content, chat.time)
   });
+
+  // return true
 }
 
 function clearField() {
