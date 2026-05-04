@@ -11,11 +11,12 @@ body{
 .app{
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   height: 100dvh;
-  margin: 0 auto;
-  min-width: 400px;
-  max-width: 480px;
+  /* margin: 0 auto; */
+  /* min-width: 400px; */
+  /* max-width: 480px; */
 
   border-radius: 10px;
 
@@ -104,8 +105,9 @@ main{
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 90%; 
-  flex-grow: 1;
+  /* height: 90%;  */
+  overflow: hidden;
+  flex: 1;
   width: 100%;
   background-color: rgb(222, 222, 222);
 }
@@ -121,10 +123,12 @@ main{
 }
 
 .chat-UI{
+  flex: 1;
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
   scrollbar-width: none;
   color: black;
   border-radius: 10px;
@@ -148,7 +152,7 @@ main{
   display: flex;
   flex-direction: column;
   padding: 10px;
-  max-width: 230px;
+  max-width: 60dvw;
   font-size: 12px;
   border-radius: 15px;
 }
@@ -210,12 +214,15 @@ main{
   background-color: white;
 }
 form{
+  position: sticky;
+  bottom: 0;
+
   display: flex;
   justify-content: center;
   align-items: end;
   max-height: 200px ;
-  height: 15%;
-  width: 95%;
+  height: 5%;
+  width: 96%;
   margin-top: 0;
   margin-bottom: 15px;
   column-gap: 15px;
