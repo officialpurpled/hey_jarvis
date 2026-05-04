@@ -3,36 +3,19 @@ import { createMsg, loadMsg } from './component/renderMessage.js';
 import { handlePrompt } from './component/responseHandler.js';
 
 lucide.createIcons()
-
 export let isActive= true
-export let memory = JSON.parse(localStorage.getItem('chats'))||{
-  userId: '',
-  messages: []
-}
+
+export let memory = JSON.parse(localStorage.getItem('chats'))
+
 
 // load state //auto
 document.addEventListener('DOMContentLoaded', (e) => {
-  setTimeout(()=>{
-    statusElem.innerText = "Updating..." 
-    statusElem.style.color = 'black'
-  },
-    2000
-  )
-
+  statusElem.innerText = "Updating..." 
+  statusElem.style.color = 'black'
+  
+  setTimeout(()=>{loadOldChat()},2500)
   autoscroll()
-  loadOldChat()
-  // const vv = loadOldChat()
-  // if (!vv) {
-  //   liveStatus(true)
-  //   showToast('No previously saved chat found')
-  // }
-
-  setTimeout(
-    ()=>{
-      liveStatus(true)
-    },
-    4200
-  ) 
+  setTimeout( ()=>{liveStatus(true) },3200) 
 });
 
 //change state //manual
@@ -63,28 +46,42 @@ document.querySelector('#notisBtn').addEventListener('click', (e) => {
   showToast(msg)
 })
 
+function loadOldChat() {
+  try {
+    const prevChat = JSON.parse(localStorage.getItem('chats'));
+    const isArr = Array.isArray(prevChat);
 
-function loadOldChat () {
-  const oldChat = JSON.parse(localStorage.getItem('chats')) || memory
+    const nId = `user-${crypto.randomUUID()}`;
 
-  if(!oldChat || (!oldChat.messages || oldChat.messages == []) || !oldChat.userId) {
-    localStorage.removeItem('chats')
-    const newId = `user-${Math.floor(100000 + Math.random()*900000).toString()}`
-    Object.assign(oldChat, {userId: newId})
+    if (!localStorage.getItem('jarvisToken')) {
+      memory = {
+        userId: nId,
+        messages: isArr ? prevChat : [],
+      };
 
-    console.log(oldChat)
-    localStorage.setItem('jarvisToken', newId)
-    localStorage.setItem('chats', JSON.stringify(oldChat))
-    return
+      localStorage.setItem('jarvisToken', nId);
+      localStorage.setItem('chats', JSON.stringify(memory));
+    }
+
+    const oldChat = JSON.parse(localStorage.getItem('chats'));
+
+    if (!oldChat.messages || oldChat.messages.length === 0) {
+      console.log('No previous chat found.');
+      return;
+    }
+
+    oldChat.messages.forEach((chat) => {
+      const ai = chat.role === 'assistant';
+      const sender = ai ? 'Jarvis' : 'You';
+      loadMsg(sender, chat.content, chat.time);
+    });
+  } catch (error) {
+    localStorage.setItem('chats', JSON.stringify({
+        userId: 'user-' + crypto.randomUUID(),
+        messages: [],
+      }))
+    console.error('Error loading old chat:', error);
   }
-
-  oldChat.messages.forEach(chat => {
-    const ai = chat.role === 'assistant'
-    const sender = ai? 'Jarvis': 'You'
-    loadMsg(sender, chat.content, chat.time)
-  });
-
-
 }
 
 function dothisNow(){
