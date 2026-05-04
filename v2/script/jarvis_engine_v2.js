@@ -1,4 +1,5 @@
 import {base_uri, api_key, method} from '../lib/api.js'
+lucide.createIcons()
 
 let isActive= true
 let memory = [];
@@ -52,7 +53,7 @@ const commandMap = {
 // );
 
 function aiAgent(prompt) { //command or text
-  fetch(base_uri, {
+  fetch(api_key, {
     method: method,
     headers: { 
       // 'Authorization': `Bearer ${token}`,
@@ -65,7 +66,7 @@ function aiAgent(prompt) { //command or text
   })
   .then(res => {
     if (!res.ok) {
-      throw new Error('There is an annomally within the system. Contact the support team');
+      createMsg('System', 'There is an annomally within the system. Contact the support team');
     }
     return res.json();
   })
@@ -73,7 +74,7 @@ function aiAgent(prompt) { //command or text
     createMsg('Jarvis', data.message);
   })
   .catch((err) => {
-    createMsg('System', err.message);
+    createMsg('System', "Slow/Poor internet connection. Please move to a .. area");
     console.log(err)
   });
 }
@@ -277,8 +278,8 @@ document.querySelector('#sendBtn').addEventListener('click', (e) => {
   const time = new Date().toLocaleTimeString()
 
   const text = inputField.value
-  console.log(text)
-  // addMemory('user', text, time);
+  // console.log(text)
+  if(!text) return
   
   // user messagge
   createMsg('You', text)

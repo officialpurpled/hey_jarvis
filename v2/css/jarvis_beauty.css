@@ -1,12 +1,14 @@
 
 body{
-  background-color:rgba(103, 98, 98, 0.86);
+  background-color:rgb(109, 0, 205);
   color: white;
   align-items: center;
   scrollbar-width: none;
 
-  margin-top: 0;
+  /* margin-top: 0;
   margin-bottom: 0;
+  margin-left: 0; */
+  margin: 0;
 }
 .app{
   display: flex;
@@ -14,9 +16,6 @@ body{
   justify-content: center;
   align-items: center;
   height: 100dvh;
-  /* margin: 0 auto; */
-  /* min-width: 400px; */
-  /* max-width: 480px; */
 
   border-radius: 10px;
 
@@ -105,7 +104,6 @@ main{
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  /* height: 90%;  */
   overflow: hidden;
   flex: 1;
   width: 100%;
@@ -126,12 +124,13 @@ main{
   flex: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100dvw;
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: none;
   color: black;
   border-radius: 10px;
+  padding-bottom: 55px;
 }
 .me,
 .jarvis{
@@ -208,35 +207,37 @@ main{
   color: white;
 }
 
-.form-wrapper{
-  padding-bottom: 10px;
-  width: 100%;
-  background-color: white;
-}
 form{
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  background-color: rgba(222, 222, 222, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 33px 0 rgb(0, 0, 0, 0.2);
 
   display: flex;
   justify-content: center;
   align-items: end;
-  max-height: 200px ;
-  height: 5%;
-  width: 96%;
-  margin-top: 0;
-  margin-bottom: 15px;
+  max-height: 150px ;
+  height: 6.5%;
+  width: 100%;
+  padding-bottom: 15px;
   column-gap: 15px;
 }
 textarea{
-  flex-grow: 1;
-  margin-right: -1px;
+  flex: 1;
+  padding-top: 6px;
   padding-left: 8px;
   padding-right: 4px;
-  height: 18px;
+  height: 24px;
   max-height: 75px;
   outline: none;
   background-color: rgba(81, 75, 75, 0.096);
-  border: 1px solid rgb(53, 53, 53);
+  border: 1px solid rgba(78, 62, 62, 0.25);
   border-radius: 20px;
   /* text-wrap-style: stable;
   word-wrap: break-word; */
@@ -245,8 +246,8 @@ textarea{
 }
 button{
   font-size: 12px;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   background-color: transparent;
   border: none;
   border-radius: 40px;
@@ -257,11 +258,11 @@ button{
   color: white;
 }
 
-
 .nav{
-  background-color: rgb(224, 224, 224);
-  width: 100%;
-  /* height: 5px;  */
+  /* background-color: #ffff; */
+  position: fixed;
+  bottom: 1px;
+  /* width: 100%; */
 } 
 
 .nav p{
@@ -269,9 +270,9 @@ button{
   color: rgb(69, 78, 78); 
   text-align: center;
   font-size: xx-small;
-  position: relative;
+  /* position: relative; */
   font-weight: 700;
-  bottom: 9px;
+  /* bottom: 9px; */
 }
 
 

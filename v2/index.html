@@ -12,7 +12,7 @@
     <!-- the header sec -->
     <header>
       <div class="nav-back" onclick="window.history()">
-        <img src="image/icons/arr-back.svg" class="icons">
+        <span data-lucide="bell-off"></span>
       </div>
       <div class="profile">
         <div class="img-holder">
@@ -24,7 +24,8 @@
         </div>
       </div>
       <div class="switch" onclick="window.location= '../'">
-        <img src="image/icons/menu-nav.svg" class="icons" alt="">
+        <!-- <img src="image/icons/menu-nav.svg" class="icons" alt=""> -->
+         <span data-lucide="audio-lines"></span>
       </div>
     </header>
 
@@ -33,7 +34,8 @@
       <!-- chat message box -->
       <div class="chat-UI" id="chat-UI"> 
         <div class="system">
-          📄 Start of new chat with Jarvis
+          Start of new chat with Jarvis 
+          <data-lucide="message-square-dashed"></i> 
         </div>
 
         <!-- <div class="me">
@@ -221,8 +223,12 @@
       
       <!--input field-->
       <form>
-        <button id="addFileBtn" class="addFileBtn">
-          ✝️ 
+        <button 
+          id="addFileBtn" 
+          class="addFileBtn"
+          onclick="toast('Feature comming soon..')"
+        >
+          <i data-lucide="plus"></i>
         </button>
         <!-- <input type="text" 
           class="prompt-field" 
@@ -230,22 +236,28 @@
           placeholder="Enter your prompt here"  
           value="qwertyggggggggggggggggggggggggggggggggggggggggggg"
         > -->
-        <textarea name="prompt-field" id="prompt-field"></textarea>
+        <textarea 
+          name="prompt-field"
+          id="prompt-field"
+          placeholder="Enter your prompt here..."
+        ></textarea>
         <button id="sendBtn" class="sendBtn">
-          📤 
+          <i data-lucide="send"></i>
         </button>
       </form>
+
+      <!-- Bottom -->
+      <div class="nav">
+        <p>
+          Always crosscheck AI response. as its liable to make mistake 
+        </p>
+      </div>
     </main>
   
-    <!-- Bottom -->
-    <div class="nav">
-      <p>
-        Always crosscheck AI response. as its liable to make mistake 
-      </p>
-    </div>
 
   </div>
 
+  <script src="./lib/lucide.js"></script>
   <script src="./lib/purify.min.js"></script>
   <script src="./lib/marked.min.js"></script>
   <script type="module" src="script/jarvis_engine_v2.js"></script>
