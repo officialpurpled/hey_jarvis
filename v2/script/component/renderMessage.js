@@ -2,6 +2,28 @@ import { clearField, autoscroll, addMemory } from "./updateHandler.js"
 
 const chatBox = document.querySelector('.chat-UI')
 
+//format message
+function formatCodeMsg(bodyDiv) {
+bodyDiv.querySelectorAll("pre").forEach(pre => {
+  // avoid duplicate buttons
+  if (pre.querySelector(".copy-btn")) return;
+
+  const button = document.createElement("button");
+  button.textContent = "Copy";
+  button.className = "copy-btn";
+
+  button.onclick = () => {
+    const code = pre.querySelector("code").innerText;
+    navigator.clipboard.writeText(code);
+
+    button.textContent = "Copied!";
+    setTimeout(() => button.textContent = "Copy", 1500);
+  };
+
+  pre.style.position = "relative";
+  pre.appendChild(button);
+});}
+
 //Adds new Message
 export function createMsg(from, text){
   const user = from === 'You'
@@ -13,7 +35,12 @@ export function createMsg(from, text){
       <img src="image/${user ?'me-img.jpg' :'avatar.jpg'}" alt="icons" class="c-avatar">
     </div>
   `
-
+  //message body
+  const bodyDiv = `
+    <div class="body">
+        ${DOMPurify.sanitize(marked.parse(text))} 
+    </div>
+  `
   //message body component 
   const msgSec = `
     <div class="message">
@@ -21,12 +48,10 @@ export function createMsg(from, text){
         <b>${from}</b>
         <i class="time">${time.split(':')[0]}:${time.split(':')[1]}</i>
       </div>
-      <div class="body">
-        ${DOMPurify.sanitize(marked.parse(text))} 
-      </div>
+      ${bodyDiv}
     </div>
   `
-
+  formatCodeMsg(bodyDiv)
   // build chat
   chatBox.innerHTML += `
     <div class="${user? 'me': 'jarvis'}">
@@ -55,6 +80,11 @@ export function loadMsg(from, text, time){
     </div>
   `
 
+  const bodyDiv = `
+    <div class="body">
+        ${DOMPurify.sanitize(marked.parse(text))} 
+    </div>
+  `
   //message body component 
   const msgSec = `
     <div class="message">
@@ -62,11 +92,11 @@ export function loadMsg(from, text, time){
         <b>${from}</b>
         <i class="time">${time.split(':')[0]}:${time.split(':')[1]}</i>
       </div>
-      <div class="body">
-        ${DOMPurify.sanitize(marked.parse(text))} 
-      </div>
+      ${bodyDiv}
     </div>
   `
+  formatCodeMsg(bodyDiv)
+  
   // build chat
   chatBox.innerHTML += `
     <div class="${user? 'me': 'jarvis'}">
