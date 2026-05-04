@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Text based Hey Jarvis  v2.0, its the advance and optimized version of the voice based Hey Jarvis v1.0">
   <meta name="author" content="Purple Dragon Official">
   <meta name="developer" content="Purple Dragon Official">
   <title>Hey Jarvis 2.0</title>
   <link rel="stylesheet" href="css/jarvis_beauty.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js/styles/github-dark.css">
 </head>
 <body>
   <div class="app">
@@ -71,12 +72,6 @@ Hello jarvis
         >
           <i data-lucide="plus"></i>
         </button>
-        <!-- <input type="text" 
-          class="prompt-field" 
-          id="prompt-field" 
-          placeholder="Enter your prompt here"  
-          value="qwertyggggggggggggggggggggggggggggggggggggggggggg"
-        > -->
         <textarea 
           name="prompt-field"
           id="prompt-field"
@@ -97,7 +92,7 @@ Hello jarvis
   
 
   </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js/lib/highlight.min.js"></script>
   <script src="./script/lib/lucide.js"></script>
   <script src="./script/lib/purify.min.js"></script>
   <script src="./script/lib/marked.min.js"></script>
