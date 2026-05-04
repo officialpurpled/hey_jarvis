@@ -1,13 +1,8 @@
-
 body{
   background-color:rgb(109, 0, 205);
   color: white;
   align-items: center;
   scrollbar-width: none;
-
-  /* margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 0; */
   margin: 0;
 }
 .app{
@@ -17,15 +12,13 @@ body{
   align-items: center;
   height: 100dvh;
 
-  border-radius: 10px;
-
-  background-color: aliceblue;
+  border-radius: 2px;
   overflow: hidden;
 }
 header {
   background-color: rgb(224, 224, 224);  
   width: 100%;
-  /* height: 10%; */
+  height: 9%;
   padding: 10px 0;
   display: flex;
   font-size: x-small;
@@ -40,8 +33,9 @@ header {
 } */
 .profile{
   display: flex;
-  /* align-items: center; */
-  gap: 25px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
   flex-grow: 1;
 }
 .p-avatar{
@@ -49,42 +43,32 @@ header {
 }
 .img-holder{
   border-radius: 50px;
-  width: 35px;
-  height: 35px;
-  border: 2px double rgb(0, 0, 0);
+  width: 50px;
+  height: 50px;
+  border: 3px double rgb(0, 0, 0);
   overflow: hidden;
 }
 .title{
   flex-grow: 1;
   display: flex;
-  /* align-items: center; */
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-}
-.title > h2{
-  margin: 0;
-  padding: 0;
-  font-size: large;
+  font-size: 2.8dvw;
 }
 .status{
-  /* border: 1px solid; */
+  margin-left: 5px;
   position: relative;
-  bottom: 16px;
-  left: 160px;
-  font-size: 11px;
-  margin: 0;
-  height: 0;
+  top: 5px;
+  font-size: 10px;
   color: red;
-  /* border: solid 1px; */
 }
 
-.icons{
-  width: 20px;
-  flex: 1 0 auto;
+.hicon :hover{
+  width: 23px;
+  transition: 400ms;
 }
 .nav-back, 
 .switch{
-  /* border: 1px solid; */
   border-radius: 30px;
   cursor: pointer;
   display: flex;
@@ -111,13 +95,13 @@ main{
 }
 
 .system{
-  /* display: none; */
-  position: relative;
-  left: 27%;
-  font-size: small;  
+  display: flex;
+  gap: 10px;
+  font-size: small; 
+  margin: 0 auto; 
   margin-top: 5px;
   align-items: center;
-  color: black;
+  color: rgb(56, 56, 56);
 }
 
 .chat-UI{
@@ -219,50 +203,56 @@ form{
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 8px 33px 0 rgb(0, 0, 0, 0.2);
 
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: end;
-  max-height: 150px ;
+  max-height: 250px ;
   height: 6.5%;
   width: 100%;
   padding-bottom: 15px;
-  column-gap: 15px;
+  column-gap: 5px;
 }
 textarea{
   flex: 1;
   padding-top: 6px;
-  padding-left: 8px;
-  padding-right: 4px;
-  height: 24px;
+  padding-left: 11px;
+  padding-right: 34px;
+  height: 23px;
   max-height: 75px;
   outline: none;
+
   background-color: rgba(81, 75, 75, 0.096);
   border: 1px solid rgba(78, 62, 62, 0.25);
   border-radius: 20px;
-  /* text-wrap-style: stable;
-  word-wrap: break-word; */
-
+    margin-right: 10px;
   scrollbar-width: none;
 }
 button{
   font-size: 12px;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px  ;
   background-color: transparent;
   border: none;
   border-radius: 40px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 .sendBtn{
-  background-color: black;
-  color: white;
+  border: 1px solid  rgba(78, 62, 62, 0.25);
+  margin-right: 10px;
+  position: absolute;
+  right: 0;
+}
+.addFileBtn{
+  margin-left: 10px;
+  border: dashed 1px rgba(73, 70, 70, 0.596);
 }
 
 .nav{
-  /* background-color: #ffff; */
   position: fixed;
   bottom: 1px;
-  /* width: 100%; */
 } 
 
 .nav p{
@@ -270,45 +260,6 @@ button{
   color: rgb(69, 78, 78); 
   text-align: center;
   font-size: xx-small;
-  /* position: relative; */
+  font-style: italic;
   font-weight: 700;
-  /* bottom: 9px; */
 }
-
-
-
-/* .dashboard{
-  text-align: center;
-  /* margin: 20px 0 10px 0; */
-
-  /* display: flex; */
-  /* align-items: center; */
-  /* gap: 10px; */
-  /* justify-content: center;
-}
-.result{
-  text-align: left;
-  width: 100%;
-  max-height: calc(100vh - 180px);
-  padding: .5rem;
-  overflow-y: auto;
-  scrollbar-width: none;
-
-  display: flex; 
-  flex-direction: column;
-  gap: 10px;
-
-  text-wrap: no-wrap;
-
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.result div {
-  word-wrap: break-word;
-  margin: 10px; 
-  padding: 10px; 
-  border-radius: 10px; 
-  max-width: 70%;
-} */ 
