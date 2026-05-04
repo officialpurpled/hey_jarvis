@@ -65,7 +65,7 @@ function showToast(msg) {
 // );
 
 function aiAgent(prompt) { //command or text
-  fetch(api_key, {
+  fetch(base_uri, {
     method: method,
     headers: { 
       // 'Authorization': `Bearer ${token}`,
