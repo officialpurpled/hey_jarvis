@@ -1,5 +1,5 @@
 import {base_uri, api_key, method} from '../lib/api.js'
-import { liveStatus} from './updateHandler.js';
+import { liveStatus, statusElem} from './updateHandler.js';
 import { createMsg } from './renderMessage.js';
 import { isActive, memory } from '../jarvis_engine_v2.js';
 
@@ -35,6 +35,9 @@ const commandMap = {
 
 //main handler //dynamic
 export function aiAgent(prompt) { //command or text
+  statusElem.innerText = 'Typing...'
+  statusElem.style.color = 'black'
+
   fetch(base_uri, {
     method: method,
     headers: { 
@@ -48,16 +51,19 @@ export function aiAgent(prompt) { //command or text
   })
   .then(res => {
     if (!res.ok) {
-      createMsg('System', 'There is an annomally within the system. Contact the support team');
+      createMsg('System', 'There is an annomally within the system. Contact the support team or checkback later');
+      liveStatus(false)
       return;
     }
     return res.json();
   })
   .then(data => {
     createMsg('Jarvis', data.message);
+    liveStatus(true)
   })
   .catch((err) => {
     createMsg('System', "Poor or No internet connection. <br> Please move to a secluded area or subscribe");
+    liveStatus(true)
     console.log(err)
   });
 }

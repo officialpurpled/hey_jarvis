@@ -1,0 +1,22 @@
+@media (min-width: 600px){
+  .title {
+    font-size: 1.7em;
+  }
+} 
+
+@media (min-width: 731px){
+  .chat-UI{
+    max-width: calc(100% - 185px);
+    transition: max-width 1s ease-in-out;
+    border: 1px solid rgba(38, 30, 47, 0.272);
+    border-top: none;
+    border-bottom: none;
+    border-radius: 1px;
+  }
+  .me > .message{
+    max-width: 35dvw;
+  }
+  .jarvis > .message{
+    max-width: 67dvw;
+  }
+}

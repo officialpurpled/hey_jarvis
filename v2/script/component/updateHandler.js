@@ -4,7 +4,7 @@ export const thepage = document.querySelector('.chat-UI');
 export const inputField = document.querySelector('#prompt-field')
 export const statusElem = document.querySelector('.status')
 
-const MAX_MEMORY_ENTRIES = 20;
+const MAX_MEMORY_ENTRIES = 50;
 
 //update stustus elem
 export function liveStatus(param){

@@ -2,15 +2,16 @@ import { autoscroll, liveStatus, clearField, statusElem, thepage, inputField, sh
 import { createMsg, formatCodeMsg, loadMsg } from './component/renderMessage.js';
 import { handlePrompt } from './component/responseHandler.js';
 
-marked.setOptions({
-  breaks: true,
-  gfm: true
-});
+// marked.setOptions({
+//   breaks: true,
+//   gfm: true
+// });
 
 lucide.createIcons()
 
 export let isActive= true
 export let memory = JSON.parse(localStorage.getItem('chats'))
+const textarea = document.querySelector('textarea')
 
 //control header
 const header = document.querySelector("header");
@@ -26,24 +27,28 @@ document.addEventListener('DOMContentLoaded', (e) => {
   statusElem.innerText = "Updating..." 
   statusElem.style.color = 'black'
   
-  setTimeout(()=>{loadOldChat()},2500)
-  autoscroll()
-  formatCodeMsg()
-  setTimeout( ()=>{liveStatus(true) },3200) 
+  setTimeout(()=>{
+    loadOldChat(); 
+    formatCodeMsg(document.querySelectorAll('.jarvis .message'))
+    },2200)
+
+  setTimeout( ()=>{
+    // autoscroll()
+    liveStatus(true) 
+  },3000) 
 });
 
 //change state //manual
 document.querySelector('#sendBtn').addEventListener('click', (e) => {
   e.preventDefault()
-
-  const time = new Date().toLocaleTimeString()
-
+  // const time = new Date().toLocaleTimeString()
   const text = inputField.value
   // console.log(text)
   if(!text) return
   
   // user messagge
   createMsg('You', text)
+  textarea.style.height = '33px'
 
   // ai message //hardcoded only
   handlePrompt(text)
@@ -91,12 +96,8 @@ function loadOldChat() {
       loadMsg(sender, chat.content, chat.time);
     });
   } catch (error) {
-    // localStorage.setItem('chats', JSON.stringify({
-    //     userId: 'user-' + crypto.randomUUID(),
-    //     messages: [],
-    //   }))
-    showToast('Error loading old chat. Starting fresh.')
-    console.error('Error loading old chat:', error);
+    showToast('Error loading previous chat. Continue while i fix that.')
+    console.error('Error loading previous chat:', error);
   }
 }
 
@@ -110,4 +111,11 @@ function dothisNow(){
   console.log(prevChat)
   localStorage.setItem('chats', JSON.stringify(prevChat))
 }
-// dothisNow()
+
+textarea.addEventListener('input', ()=>{
+  textarea.style.height = '34px'
+  // form.style.height = '60px'
+
+  textarea.style.height = textarea.scrollHeight + 'px';
+  // form.style.height = form.scrollHeight + 'px';
+})

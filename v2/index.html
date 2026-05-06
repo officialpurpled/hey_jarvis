@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Text based Hey Jarvis  v2.0, its the advance and optimized version of the voice based Hey Jarvis v1.0">
+  <meta name="description" content="Text based Hey Jarvis  v2.0, its the advance and optimized version of the voice based Hey Jarvis v1">
   <meta name="author" content="Purple Dragon Official">
   <meta name="developer" content="Purple Dragon Official">
-  <title>Hey Jarvis 2.0</title>
+  <title>Hey Jarvis v2</title>
   <link rel="stylesheet" href="css/jarvis_beauty.css">
+  <link rel="stylesheet" href="css/mediaquery.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js/styles/github-dark.css">
 </head>
 <body>
@@ -18,7 +19,7 @@
         id="notisBtn" 
         class="nav-back hicon"
       >
-        <span data-lucide="bell-off"></span>
+        <span data-lucide="moon"></span>
       </div>
       <div class="profile">
         <div class="img-holder">
@@ -42,59 +43,63 @@
       <div class="chat-UI" id="chat-UI"> 
         <div class="system">
           Start of new chat with Jarvis 
-          <span data-lucide="message-square-dashed"></span> 
+          <span class="start" data-lucide="message-square-dashed"></span> 
         </div>
 
         <!-- Message Example
          ‹div id="me"›
-‹div class="message">
-‹div class="head">
-<b>You</b>
-‹i class="time"›4:25pm</і>
-</div>
-‹div class="body">
-Hello jarvis
-</div>
-</div>
-‹div class="c-avatar-holder">
-‹img src="image/me-img.jpg" alt="icons"/>
-</div>
-</div>
+          ‹div class="message">
+            ‹div class="head">
+            <b>You</b>
+            ‹i class="time"›4:25pm</і>
+            </div>
+            ‹div class="body">
+            Hello jarvis
+            </div>
+          </div>
+          ‹div class="c-avatar-holder">
+            ‹img src="image/me-img.jpg" alt="icons"/>
+          </div>
+        </div>
         -->
   
       </div>
-      
+      <!-- <div class="loadText">
+        Loading
+       </div> -->
       <!--input field-->
-      <form>
-        <button 
-          class="addFileBtn"
-          id="addFileBtn"
-        >
-          <i data-lucide="plus"></i>
-        </button>
-        <textarea 
-          name="prompt-field"
-          id="prompt-field"
-          placeholder="Enter your prompt here..."
-        ></textarea>
-        <button id="sendBtn" class="sendBtn">
-          <i data-lucide="send"></i>
-        </button>
-      </form>
-
-      <!-- Bottom -->
-      <div class="nav">
-        <p>
-          Always crosscheck AI response. as its liable to make mistake 
-        </p>
+      <div class="formWrap">
+        <form>
+          <button 
+            class="addFileBtn"
+            id="addFileBtn"
+          >
+            <i data-lucide="plus"></i>
+          </button>
+          <textarea 
+            name="prompt-field"
+            id="prompt-field"
+            placeholder="Enter your prompt here..."
+          ></textarea>
+          <button id="sendBtn" class="sendBtn">
+            <i data-lucide="send"></i>
+          </button>
+        </form>
+  
+        <!-- Bottom -->
+        <div class="nav">
+          <p >
+            Jarvis AI can make mistakes. Check important info.
+          </p>
+        </div>
       </div>
     </main>
   
 
   </div>
   <script src="./script/lib/lucide.js"></script>
-  <script src="./script/lib/purify.min.js"></script>
-  <script src="./script/lib/marked.min.js"></script>
-  <script type="module" src="script/jarvis_engine_v2.js"></script>
-</body>
+    <script src="./script/lib/purify.min.js"></script>
+      <script src="./script/lib/marked.min.js"></script>
+    <script type="module" src="script/jarvis_engine_v2.js"></script>
+  </body>
 </html>

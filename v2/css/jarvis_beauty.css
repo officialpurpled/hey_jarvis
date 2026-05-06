@@ -5,7 +5,7 @@ html, body {
   overscroll-behavior: none;
 }
 body{
-  background-color: #fff;
+  background-color: rgb(222, 222, 222);
   color: white;
   align-items: center;
   scrollbar-width: none;
@@ -27,9 +27,10 @@ body{
   top: 5px;
   right: 5px;
   font-size: 10px;
-  padding: 4px 6px;
+  padding: 6px;
   border: none;
   border-radius: 4px;
+  text-align: center;
   background: rgba(255,255,255,0.2);
   color: white;
   cursor: pointer;
@@ -51,14 +52,14 @@ body{
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 3px 5px 0 rgb(0, 0, 0, 0.2);
 
-  color: rgba(11, 9, 9, 0.575);
+  color: rgba(255, 255, 255, 0.575);
   font-size: 13px; 
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 5px;
   white-space: nowrap;
   opacity: 0; pointer-events: none;
-  transition: opacity .25s, transform .3s cubic-bezier(.34,1.56,.64,1);
+  transition: opacity .45s, transform .3s cubic-bezier(.34,1.56,.64,1);
   z-index: 9999;
 }
 #toast.show { 
@@ -149,16 +150,6 @@ main{
   background-color: rgb(222, 222, 222);
 }
 
-.system{
-  display: flex;
-  gap: 10px;
-  font-size: small; 
-  margin: 0 auto; 
-  margin-top: 5px;
-  align-items: center;
-  color: rgb(56, 56, 56);
-}
-
 .chat-UI{
   flex: 1;
   display: flex;
@@ -171,6 +162,16 @@ main{
   color: black;
   border-radius: 10px;
   padding-bottom: calc(70px + env(safe-area-inset-bottom));
+}
+
+.system{
+  display: flex;
+  gap: 5px;
+  font-size: small; 
+  margin: 0 auto; 
+  margin-top: 5px;
+  align-items: center;
+  color: rgb(56, 56, 56);
 }
 .me,
 .jarvis{
@@ -191,7 +192,7 @@ main{
   display: flex;
   flex-direction: column;
   padding: 10px;
-  max-width: 55dvw;
+  /* max-width: 75dvw; */
   font-size: 12px;
   border-radius: 15px;
   line-height: 1.6;
@@ -210,12 +211,12 @@ main{
   margin: 5px 0;
 }
 .message pre {
-  background: #d8cccc;
-  color: #171414;
+  background: #160023;
+  color: #fff;
   padding: 10px;
   border-radius: 8px;
   overflow-x: auto;
-  max-width: 100%;
+  /* max-width: 100%; */
   font-size: 12px;
 }
 .message p code {
@@ -267,6 +268,7 @@ main{
   border-bottom-right-radius: 2px;
   background-color: rgb(230, 230, 230);
   color: black;
+  max-width: 58dvw;
 }
 .jarvis > .message{
   margin-left: 2px;
@@ -274,28 +276,35 @@ main{
   border-bottom-left-radius: 1px;
   background-color: rgb(44, 44, 44);
   color: white;
+  max-width: 77dvw;
 }
 
-form{
-  position: fixed;
+.formWrap{
+/* flex: 1;  */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   bottom: 0;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  /* background-color: #171414; */
+  position: fixed;
   background-color: rgba(222, 222, 222, 0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
-
+  
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 8px 33px 0 rgb(0, 0, 0, 0.2);
-
+}
+form{
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: end;
-  max-height: 250px ;
-  height: 6.5%;
   width: 100%;
-  padding-bottom: calc(15px + env(safe-area-inset-bottom));
   column-gap: 5px;
 }
 textarea{
@@ -303,49 +312,62 @@ textarea{
   padding-top: 6px;
   padding-left: 11px;
   padding-right: 34px;
-  height: 23px;
-  max-height: 75px;
+  height: 33px;
+  max-height: 80px;
+  overflow-y: auto;
+  resize: vertical;
   outline: none;
   font-size: 16px;
-  background-color: rgba(81, 75, 75, 0.096);
+  background-color: rgba(255, 255, 255, 0.281);
   border: 1px solid rgba(78, 62, 62, 0.25);
   border-radius: 20px;
+  margin-top: 5px;
   margin-right: 10px;
   scrollbar-width: none;
 }
 button{
   font-size: 12px;
-  width: 32px;
-  height: 32px  ;
+  width: 33px;
+  height: 33px  ;
   background-color: transparent;
   border: none;
   border-radius: 40px;
   cursor: pointer;
   display: flex;
+  justify-content: center;
   align-items: center;
+  padding: 0;
 }
 .sendBtn{
-  border: 1px solid  rgba(78, 62, 62, 0.25);
+  background-color: #2a2929;
+  color: #ffffffe6;
   margin-right: 10px;
   position: absolute;
-  right: 0;
+  right: 1px;
+  width: 32px;
+  height: 32px
 }
 .addFileBtn{
   margin-left: 10px;
-  border: dashed 1px rgba(73, 70, 70, 0.596);
+  border: dotted 1px rgba(54, 53, 53, 0.596);
 }
 
 .nav{
-  position: fixed;
-  bottom: calc(70px + env(safe-area-inset-bottom));
+  /* position: relative;
+  top: calc(7px + env(safe-area-inset-bottom)); */
+  height: 10px;
   width: 100%;
+  margin-bottom: 50px;
 } 
 
-.nav p{
+.nav{
   margin: 0;
   color: rgb(69, 78, 78); 
   text-align: center;
   font-size: xx-small;
   font-style: italic;
   font-weight: 700;
+}
+.start{
+  width: 15px;
 }
