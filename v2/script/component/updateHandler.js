@@ -1,4 +1,4 @@
-import { memory, isActive } from "../jarvis_engine_v2.js";
+import { memory, isActive, sendbtn } from "../jarvis_engine_v2.js";
 
 export const thepage = document.querySelector('.chat-UI');
 export const inputField = document.querySelector('#prompt-field')
@@ -10,6 +10,7 @@ const MAX_MEMORY_ENTRIES = 50;
 export function liveStatus(param){
   statusElem.innerText = `${param ?'Active' :'Inactive'}` 
   statusElem.style.color = `${param ?'green' :'red'}`
+  sendbtn.disabled = param? false: true
 }
 
 //autoscroll up

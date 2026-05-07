@@ -2,6 +2,38 @@ import { clearField, autoscroll, addMemory } from "./updateHandler.js"
 
 const chatBox = document.querySelector('.chat-UI')
 
+//error msg
+export function logErr(from, error) {
+  const time = new Date().toLocaleTimeString()
+  
+  const ui1 = `
+    <div class="system">
+      <div class="jarvis-avatar-holder">
+        <img src="image/avatar.jpg" alt="icons" class="c-avatar">
+      </div>
+      <div class="message">
+        <div class="head">
+          <b>${from}</b>
+          <i class="time">${time.split(':')[0]}:${time.split(':')[1]}</i>
+        </div>
+        <div class="body">
+          ${DOMPurify.sanitize(marked.parse(error))} 
+        </div>
+      </div>
+    </div>
+  `
+  const ui2 = `
+    <div class="system">
+      ${from}: ${DOMPurify.sanitize(marked.parse(error))}
+    </div>
+  `
+
+  // build chat
+  chatBox.innerHTML += ui2
+  
+  autoscroll();
+}
+
 //format message
 export function formatCodeMsg(bodyDiv) {  
   if (!bodyDiv || bodyDiv.length === 0) return 

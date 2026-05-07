@@ -163,15 +163,18 @@ main{
   border-radius: 10px;
   padding-bottom: calc(70px + env(safe-area-inset-bottom));
 }
-
+.startMsg,
 .system{
   display: flex;
-  gap: 5px;
-  font-size: small; 
+  gap: 3px;
+  font-size: x-small; 
   margin: 0 auto; 
-  margin-top: 5px;
   align-items: center;
   color: rgb(56, 56, 56);
+}
+.startMsg{
+  margin-top: 5px;
+  font-size: small;
 }
 .me,
 .jarvis{
@@ -193,7 +196,7 @@ main{
   flex-direction: column;
   padding: 10px;
   /* max-width: 75dvw; */
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 15px;
   line-height: 1.6;
   word-break: break-word;
@@ -330,6 +333,7 @@ button{
   width: 33px;
   height: 33px  ;
   background-color: transparent;
+  color: #000000e6;
   border: none;
   border-radius: 40px;
   cursor: pointer;
@@ -343,9 +347,16 @@ button{
   color: #ffffffe6;
   margin-right: 10px;
   position: absolute;
-  right: 1px;
-  width: 32px;
-  height: 32px
+  right: 5px;
+  top: 10px;
+  width: 23px;
+  height: 23px
+}
+.sendBtn:disabled{
+  background-color: #939393e6;
+}
+.lucideSend{
+  width: 15px;
 }
 .addFileBtn{
   margin-left: 10px;

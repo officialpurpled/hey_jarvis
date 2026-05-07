@@ -1,45 +1,65 @@
 import { autoscroll, liveStatus, clearField, statusElem, thepage, inputField, showToast } from './component/updateHandler.js';
-import { createMsg, formatCodeMsg, loadMsg } from './component/renderMessage.js';
+import { createMsg, formatCodeMsg, loadMsg, logErr } from './component/renderMessage.js';
 import { handlePrompt } from './component/responseHandler.js';
+import { base_uri, local_base_uri, method } from './lib/api.js';
 
-// marked.setOptions({
-//   breaks: true,
-//   gfm: true
-// });
+marked.setOptions({
+  breaks: true,
+  gfm: true
+});
 
 lucide.createIcons()
 
 export let isActive= true
 export let memory = JSON.parse(localStorage.getItem('chats'))
-const textarea = document.querySelector('textarea')
 
-//control header
 const header = document.querySelector("header");
-
-window.visualViewport.addEventListener("resize", () => {
-  header.style.top = "0px";
-});
+const textarea = document.querySelector('textarea')
+export const sendbtn = document.querySelector('#sendBtn')
 
 //
 
 // load state //auto
 document.addEventListener('DOMContentLoaded', (e) => {
-  statusElem.innerText = "Updating..." 
+  statusElem.innerText = "Connecting..." 
   statusElem.style.color = 'black'
-  
-  setTimeout(()=>{
-    loadOldChat(); 
-    formatCodeMsg(document.querySelectorAll('.jarvis .message'))
-    },2200)
+  sendbtn.disabled = true
 
-  setTimeout( ()=>{
-    // autoscroll()
-    liveStatus(true) 
-  },3000) 
+  try {
+    fetch(base_uri)
+    .then(res => {
+      if (!res.ok) {
+        showToast('Please try reloading the page');
+        liveStatus(false)
+        return;
+      }
+      return res.json();
+    })
+    .then(data => {
+      if(!data.success) {
+        showToast('Unable to connect to the sever');
+        liveStatus(false)
+        return
+      }
+      // sendbtn.disabled = false
+      loadOldChat(); 
+      formatCodeMsg(document.querySelectorAll('.jarvis .message'))
+      liveStatus(true)
+    })
+    .catch((err) => {
+      logErr('System', "Poor or No internet connection.");
+      liveStatus(false)
+      console.log(err)
+    });
+  } catch (error) {
+    liveStatus(false)
+    logErr('System', error.message)
+  }
+  
 });
 
 //change state //manual
-document.querySelector('#sendBtn').addEventListener('click', (e) => {
+sendbtn.addEventListener('click', (e) => {
   e.preventDefault()
   // const time = new Date().toLocaleTimeString()
   const text = inputField.value
@@ -96,7 +116,8 @@ function loadOldChat() {
       loadMsg(sender, chat.content, chat.time);
     });
   } catch (error) {
-    showToast('Error loading previous chat. Continue while i fix that.')
+    showToast('Error loading previous chat.')
+    logErr('System', 'Error loading previous chat. Continue while i fix that.')
     console.error('Error loading previous chat:', error);
   }
 }
@@ -112,6 +133,12 @@ function dothisNow(){
   localStorage.setItem('chats', JSON.stringify(prevChat))
 }
 
+//control header
+window.visualViewport.addEventListener("resize", () => {
+  header.style.top = "1px";
+});
+
+// control textarea height
 textarea.addEventListener('input', ()=>{
   textarea.style.height = '34px'
   // form.style.height = '60px'

@@ -1,6 +1,9 @@
-export const base_uri = 'https://jarvis-brain-api.onrender.com/api/jarvis'
+const endpoint = 'api/v1/jarvis'
+export const base_uri = 'https://jarvis-brain-api.onrender.com/'
+export const api_key = base_uri + endpoint
 
-export const api_key = 'http://localhost:8000/api/jarvis'
+export const local_base_uri = 'http://localhost:8000/'
+export const local_api_key =  local_base_uri + endpoint
 
 export const method = 'POST'
 

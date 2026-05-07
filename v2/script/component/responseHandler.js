@@ -1,7 +1,7 @@
-import {base_uri, api_key, method} from '../lib/api.js'
+import {api_key, local_api_key, method} from '../lib/api.js'
 import { liveStatus, statusElem} from './updateHandler.js';
-import { createMsg } from './renderMessage.js';
-import { isActive, memory } from '../jarvis_engine_v2.js';
+import { createMsg, logErr } from './renderMessage.js';
+import { isActive, memory, sendbtn } from '../jarvis_engine_v2.js';
 
 //command key
 const commandMap = {
@@ -37,35 +37,44 @@ const commandMap = {
 export function aiAgent(prompt) { //command or text
   statusElem.innerText = 'Typing...'
   statusElem.style.color = 'black'
+  sendbtn.disabled = true
 
-  fetch(base_uri, {
-    method: method,
-    headers: { 
-      // 'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json' 
-    },
-    body: JSON.stringify({ 
-      command: prompt, 
-      memory: memory.messages
+  try {
+    fetch(api_key, {
+      method: method,
+      headers: { 
+        // 'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify({ 
+        command: prompt, 
+        memory: memory.messages
+      })
     })
-  })
-  .then(res => {
-    if (!res.ok) {
-      createMsg('System', 'There is an annomally within the system. Contact the support team or checkback later');
+    .then(res => {
+      if (!res.ok) {
+        logErr("System",'There is an annomally within the system. Contact the support team or checkback later')
+        liveStatus(false)
+        sendbtn.disabled = false
+        return;
+      }
+      return res.json();
+    })
+    .then(data => {
+      createMsg('Jarvis', data.message);
+      liveStatus(true)
+    })
+    .catch((err) => {
+      logErr("System", `Slow or No internet connection.{${err.message}}`)
       liveStatus(false)
-      return;
-    }
-    return res.json();
-  })
-  .then(data => {
-    createMsg('Jarvis', data.message);
-    liveStatus(true)
-  })
-  .catch((err) => {
-    createMsg('System', "Poor or No internet connection. <br> Please move to a secluded area or subscribe");
-    liveStatus(true)
-    console.log(err)
-  });
+      sendbtn.disabled = false
+      console.log(err)
+    });
+  } catch (error) {
+    logErr("System", error.message)
+    liveStatus(false)
+    sendbtn.disabled = false
+  }
 }
 
 //prompt handler //hardcoded
