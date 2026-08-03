@@ -10,7 +10,7 @@ marked.setOptions({
 
 lucide.createIcons()
 
-export let isActive= true
+export let isActive = true
 export let memory = JSON.parse(localStorage.getItem('chats'))
 
 const header = document.querySelector("header");
@@ -21,41 +21,41 @@ export const sendbtn = document.querySelector('#sendBtn')
 
 // load state //auto
 document.addEventListener('DOMContentLoaded', (e) => {
-  statusElem.innerText = "Connecting..." 
+  statusElem.innerText = "Connecting..."
   statusElem.style.color = 'black'
   sendbtn.disabled = true
 
   try {
     fetch(base_uri)
-    .then(res => {
-      if (!res.ok) {
-        showToast('Please try reloading the page');
+      .then(res => {
+        if (!res.ok) {
+          showToast('Please try reloading the page');
+          liveStatus(false)
+          return;
+        }
+        return res.json();
+      })
+      .then(data => {
+        if (!data.success) {
+          showToast('Unable to connect to the sever');
+          liveStatus(false)
+          return
+        }
+        // sendbtn.disabled = false
+        loadOldChat();
+        formatCodeMsg(document.querySelectorAll('.jarvis .message'))
+        liveStatus(true)
+      })
+      .catch((err) => {
+        logErr('System', "Poor or No internet connection.");
         liveStatus(false)
-        return;
-      }
-      return res.json();
-    })
-    .then(data => {
-      if(!data.success) {
-        showToast('Unable to connect to the sever');
-        liveStatus(false)
-        return
-      }
-      // sendbtn.disabled = false
-      loadOldChat(); 
-      formatCodeMsg(document.querySelectorAll('.jarvis .message'))
-      liveStatus(true)
-    })
-    .catch((err) => {
-      logErr('System', "Poor or No internet connection.");
-      liveStatus(false)
-      console.log(err)
-    });
+        console.log(err)
+      });
   } catch (error) {
     liveStatus(false)
     logErr('System', error.message)
   }
-  
+
 });
 
 //change state //manual
@@ -64,8 +64,8 @@ sendbtn.addEventListener('click', (e) => {
   // const time = new Date().toLocaleTimeString()
   const text = inputField.value
   // console.log(text)
-  if(!text) return
-  
+  if (!text) return
+
   // user messagge
   createMsg('You', text)
   textarea.style.height = '33px'
@@ -122,11 +122,11 @@ function loadOldChat() {
   }
 }
 
-function dothisNow(){
+function dothisNow() {
   const prevChat = JSON.parse(localStorage.getItem('chats'))
 
   prevChat.forEach((chat, i) => {
-    Object.assign(chat, {time: `5:28:${i}`})
+    Object.assign(chat, { time: `5:28:${i}` })
   });
 
   console.log(prevChat)
@@ -139,7 +139,7 @@ window.visualViewport.addEventListener("resize", () => {
 });
 
 // control textarea height
-textarea.addEventListener('input', ()=>{
+textarea.addEventListener('input', () => {
   textarea.style.height = '34px'
   // form.style.height = '60px'
 

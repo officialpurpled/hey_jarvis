@@ -2,6 +2,30 @@ import { clearField, autoscroll, addMemory } from "./updateHandler.js"
 
 const chatBox = document.querySelector('.chat-UI')
 
+function ph(user, text, from, time){
+  return {
+    //img component 
+    img: `
+      <div class="${user? 'me': 'jarvis'}-avatar-holder">
+        <img src="image/${user? 'avatar.jpg': 'jarvis_ai.jpg'}" alt="icons" class="c-avatar">
+      </div>
+    `,
+  
+    //message component 
+    fullMsg :`
+      <div class="message">
+        <div class="head">
+          <b>${from}</b>
+          <i class="time">${time.split(':')[0]}:${time.split(':')[1]}</i>
+        </div>
+        <div class="body">
+            ${DOMPurify.sanitize(marked.parse(text))} 
+        </div>
+      </div>
+    `
+  }
+}
+
 //error msg
 export function logErr(from, error) {
   const time = new Date().toLocaleTimeString()
@@ -88,12 +112,13 @@ export function createMsg(from, text){
       ${bodyDiv}
     </div>
   `
+  const raw = ph(user, text, from, time)
   // build chat
   chatBox.innerHTML += `
     <div class="${user? 'me': 'jarvis'}">
-      ${user ? '' : img}
-      ${msgSec}
-      ${user ? img : ''}
+      ${user ? '' : raw.img}
+      ${raw.fullMsg}
+      ${user ? raw.img : ''}
     </div>
   `
   addMemory(
@@ -113,7 +138,7 @@ export function loadMsg(from, text, time){
   //img component 
   const img = `
     <div class="${user? 'me': 'jarvis'}-avatar-holder">
-      <img src="image/${user? 'me-img.jpg': 'avatar.jpg'}" alt="icons" class="c-avatar">
+      <img src="image/${user? 'avatar.jpg': 'jarvis_ai.jpg'}" alt="icons" class="c-avatar">
     </div>
   `
 
@@ -132,13 +157,13 @@ export function loadMsg(from, text, time){
       ${bodyDiv}
     </div>
   `
-   
+  const raw = ph(user, text, from, time)
   // build chat
   chatBox.innerHTML += `
     <div class="${user? 'me': 'jarvis'}">
-      ${user ? '' : img}
-      ${fullMsg}
-      ${user ? img : ''}
+      ${user ? '' : raw.img}
+      ${raw.fullMsg}
+      ${user ? raw.img : ''}
     </div>
   `
   autoscroll();

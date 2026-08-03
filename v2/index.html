@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Text based Hey Jarvis  v2.0, its the advance and optimized version of the voice based Hey Jarvis v1">
+  <meta name="description"
+    content="Text based Hey Jarvis  v2.0, its the advance and optimized version of the voice based Hey Jarvis v1">
   <meta name="author" content="Purple Dragon Official">
   <meta name="developer" content="Purple Dragon Official">
   <title>Hey Jarvis v2</title>
   <link rel="stylesheet" href="css/jarvis_beauty.css">
-  <link rel="stylesheet" href="css/mediaquery.css">
+  <!-- <link rel="stylesheet" href="css/mediaquery.css"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js/styles/github-dark.css">
 </head>
+
 <body>
   <div class="app">
     <!-- the header sec -->
     <header>
-      <div 
-        id="notisBtn" 
-        class="nav-back hicon"
-      >
+      <div id="notisBtn" class="nav-back hicon">
         <span data-lucide="moon"></span>
       </div>
       <div class="profile">
         <div class="img-holder">
-          <img src="image/me-img.jpg" class="p-avatar" alt="avater">
+          <img src="image/jarvis_ai_bk.jpg" class="p-avatar" alt="avater">
         </div>
         <div class="title">
-          <h2>Chat with Jarvis AI</h2> 
-          <p class="status">Inactive</p>
+          <h2>Chat with Jarvis AI</h2>
+          <p class="status">Offline</p>
         </div>
       </div>
       <div class="switch hicon" onclick="window.location= '../'">
-        <!-- <img src="image/icons/menu-nav.svg" class="icons" alt=""> -->
-         <span data-lucide="audio-lines"></span>
+        <span data-lucide="audio-lines"></span>
       </div>
     </header>
 
@@ -40,66 +39,70 @@
     <main>
       <p id="toast"></p>
       <!-- chat message box -->
-      <div class="chat-UI" id="chat-UI"> 
+      <div class="chat-UI" id="chat-UI">
         <div class="startMsg">
-          Start of new chat with Jarvis 
-          <span class="start" data-lucide="message-square-dashed"></span> 
+          Start of new chat with Jarvis
+          <span class="start" data-lucide="message-square-dashed"></span>
+        </div>
+        <!-- example message -->
+        <!-- <div class="me">
+          <div class="jarvis-avatar-holder">
+            <img src="image/avatar.jpg" alt="icons" class="c-avatar">
+          </div>
+          <div class="message">
+            <div class="head">
+              <b>${from}</b>
+              <i class="time">${time.split(':')[0]}:${time.split(':')[1]}</i>
+            </div>
+            <div class="body">
+              ${DOMPurify.sanitize(marked.parse(error))}
+            </div>
+          </div>
         </div>
 
-        <!-- Message Example
-         ‹div id="me"›
-          ‹div class="message">
-            ‹div class="head">
-            <b>You</b>
-            ‹i class="time"›4:25pm</і>
+        <div class="jarvis">
+
+          <div class="message">
+            <div class="head">
+              <b>${from}</b>
+              <i class="time">${time.split(':')[0]}:${time.split(':')[1]}</i>
             </div>
-            ‹div class="body">
-            Hello jarvis
+            <div class="body">
+              ${DOMPurify.sanitize(marked.parse(error))}
             </div>
           </div>
-          ‹div class="c-avatar-holder">
-            ‹img src="image/me-img.jpg" alt="icons"/>
+          <div class="jarvis-avatar-holder">
+            <img src="image/jarvis_ai.jpg" alt="icons" class="c-avatar">
           </div>
-        </div>
-        -->
-  
+        </div> -->
       </div>
-      <!-- <div class="loadText">
-        Loading
-       </div> -->
+
       <!--input field-->
       <div class="formWrap">
         <form>
-          <button 
-            class="addFileBtn"
-            id="addFileBtn"
-          >
-            <i data-lucide="plus"></i>
+          <button class="addFileBtn" id="addFileBtn">
+            <i data-lucide="plus" class="lucideAdd"></i>
           </button>
-          <textarea 
-            name="prompt-field"
-            id="prompt-field"
-            placeholder="Enter your prompt here..."
-          ></textarea>
+          <textarea name="prompt-field" id="prompt-field" placeholder="Enter your prompt here..."></textarea>
           <button id="sendBtn" class="sendBtn">
             <i data-lucide="mail" class="lucideSend"></i>
           </button>
         </form>
-  
+
         <!-- Bottom -->
         <div class="nav">
-          <p >
+          <p>
             Jarvis AI can make mistakes. Check important info.
           </p>
         </div>
       </div>
     </main>
-  
 
   </div>
   <script src="./script/lib/lucide.js"></script>
-    <script src="./script/lib/purify.min.js"></script>
-      <script src="./script/lib/marked.min.js"></script>
-    <script type="module" src="script/jarvis_engine_v2.js"></script>
-  </body>
+  <script src="./script/lib/purify.min.js"></script>
+  <script src="./script/lib/marked.min.js"></script>
+  <script type="module" src="script/jarvis_engine_v2.js"></script>
+</body>
+
 </html>

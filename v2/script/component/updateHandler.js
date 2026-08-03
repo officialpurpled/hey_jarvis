@@ -8,7 +8,7 @@ const MAX_MEMORY_ENTRIES = 50;
 
 //update stustus elem
 export function liveStatus(param){
-  statusElem.innerText = `${param ?'Active' :'Inactive'}` 
+  statusElem.innerText = `${param ?'Online' :'Offline'}` 
   statusElem.style.color = `${param ?'green' :'red'}`
   sendbtn.disabled = param? false: true
 }
