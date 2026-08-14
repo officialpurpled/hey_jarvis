@@ -7,7 +7,7 @@ function ph(user, text, from, time) {
     //img component 
     img: `
       <div class="${user ? 'me' : 'jarvis'}-avatar-holder">
-        <img src="image/${user ? 'avatar.jpg' : 'jarvis_ai.jpg'}" alt="icons" class="c-avatar">
+        <img src="image/${user ? 'avatar.png' : 'jarvis_ai.jpg'}" alt="icons" class="c-avatar">
       </div>
     `,
 
@@ -33,7 +33,7 @@ export function logErr(from, error) {
   const ui1 = `
     <div class="system">
       <div class="jarvis-avatar-holder">
-        <img src="image/avatar.jpg" alt="icons" class="c-avatar">
+        <img src="image/avatar.png" alt="icons" class="c-avatar">
       </div>
       <div class="message">
         <div class="head">
@@ -93,7 +93,7 @@ export function createMsg(from, text) {
   //img component 
   const img = `
     <div class="${user ? 'me' : 'jarvis'}-avatar-holder">
-      <img src="image/${user ? 'me-img.jpg' : 'avatar.jpg'}" alt="icons" class="c-avatar">
+      <img src="image/${user ? 'avatar.png' : 'avatar.png'}" alt="icons" class="c-avatar">
     </div>
   `
   //message body
@@ -138,7 +138,7 @@ export function loadMsg(from, text, time) {
   //img component 
   const img = `
     <div class="${user ? 'me' : 'jarvis'}-avatar-holder">
-      <img src="image/${user ? 'avatar.jpg' : 'jarvis_ai.jpg'}" alt="icons" class="c-avatar">
+      <img src="image/${user ? 'avatar.png' : 'jarvis_ai.jpg'}" alt="icons" class="c-avatar">
     </div>
   `
 

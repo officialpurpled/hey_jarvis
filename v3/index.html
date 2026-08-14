@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description"
+    content="Text based Hey Jarvis  v2.0, its the advance and optimized version of the voice based Hey Jarvis v1">
+  <meta name="author" content="Purple Dragon Official">
+  <meta name="developer" content="Purple Dragon Official">
+  <title>Hey Jarvis v3</title>
+  <link rel="icon" href="image/jarvis-wt.png" type="image/x-icon">
+  <link rel="shortcut" href="image/jarvis-wt.png" type="image/x-icon">
+  <link rel="stylesheet" href="./css/jarvis_beauty.css">
+  <link rel="stylesheet" href="./css/code-formatter.css">
+  <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/styles/github-dark.min.css">
+</head>
+
+<body>
+  <div class="app">
+    <!-- the header sec -->
+    <header>
+      <div id="notisBtn" class="nav-back">
+        <i data-lucide="moon" class="hicon"></i>
+      </div>
+
+      <div class="profile">
+        <div class="title">
+          Chat with Jarvis AI
+          <div class="status"></div>
+          <div class="version">v3</div>
+        </div>
+      </div>
+
+      <div class="switch" onclick="window.location= '../'">
+        <i data-lucide="audio-lines" class="hicon"></i>
+      </div>
+
+    </header>
+
+    <div id="feedback"></div>
+
+    <!-- chat message box -->
+    <div class="chatMessages-container" id="chat-UI">
+      <div class="startMsg">
+        Start of new chat with Jarvis
+        <span class="start" data-lucide="message-square-dashed"></span>
+      </div>
+      <!-- example message -->
+      <!-- <div class="user">
+        <div class="message">
+          <div class="text">
+            Let assume this is one long text.. like a very long text .. so i want to confirm how it does break for
+            real..
+            Let assume this is one long text.. like a very long text .. so i want to confirm how it does break for
+            real..
+            Let assume this is one long text.. like a very long text .. so i want to confirm how it does break for
+            real..
+          </div>
+          <div class="time">
+            <i>${time.split(':')[0]}:${time.split(':')[1]}</i>
+          </div>
+        </div>
+        <img src="../image/avatar.png" alt="icons" class="c-avatar">
+      </div>
+
+      <div class="jarvis">
+        <img src="../image/jarvis-wt.png" alt="icons" class="c-avatar">
+        <div class="message">
+          <div class="text">
+            Let assume this is one long text.. like a very long text .. so i want to confirm how it does break for
+            real..
+            Let assume this is one long text.. like a very long text .. so i want to confirm how it does break for
+            real..
+            Let assume this is one long text.. like a very long text .. so i want to confirm how it does break for
+            real..
+            Let assume this is one long text.. like a very long text .. so i want to confirm how it does break for
+            real..
+            Let assume this is one long text.. like a very long text .. so i want to confirm how it does break for
+            real..
+            Let assume this is one long text.. like a very long text .. so i want to confirm how it does break for
+            real..
+          </div>
+          <div class="time">
+            <i> 11:20</i>
+          </div>
+        </div>
+      </div>
+
+      <div class="user">
+        <div class="message">
+          <div class="text">
+            ${DOMPurify.sanitize(marked.parse(error))}
+          </div>
+          <div class="time">
+            <i>12:20 am</i>
+          </div>
+        </div>
+        <img src="image/avatar.png" alt="icons" class="c-avatar">
+      </div>
+
+      <div class="jarvis">
+        <img src="../image/jarvis-wt.png" alt="icons" class="c-avatar">
+        <div class="message">
+          <div class="text">
+            <pre>
+<code>
+what a day
+</code>
+</pre>
+          </div>
+          <div class="time">
+            <i>${time.split(':')[0]}:${time.split(':')[1]}</i>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <!--input field-->
+    <div class="chatInput formWrap">
+      <button class="addFileBtn" id="addFileBtn">
+        <i data-lucide="plus" class="lucideAdd"></i>
+      </button>
+
+      <div class="input-container">
+        <textarea name="prompt-field" id="prompt-field" placeholder="Ask anything..."></textarea>
+
+        <button id="sendBtn" class="sendBtn">
+          <i data-lucide="mail" class="lucideSend"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="caution">
+      Jarvis AI can make mistakes. Check important info.
+    </div>
+  </div>
+  <script src="../script/lib/lucide.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/highlight.min.js"></script>
+  <script type="module" src="../script/jarvis_engine_v3.js"></script>
+</body>
+
+</html>

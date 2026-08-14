@@ -1,0 +1,117 @@
+/* =========================
+   CODE BLOCK
+========================= */
+
+.code-block-wrapper {
+  position: relative;
+  margin: 16px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0d1117;
+  border: 1px solid #30363d;
+}
+
+/* Top bar */
+
+.code-block-header {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 12px;
+
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+
+  font-size: 12px;
+}
+
+/* Language */
+
+.code-language {
+  color: #8b949e;
+  font-family: monospace;
+  text-transform: lowercase;
+}
+
+/* Copy button */
+
+.copy-code-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  border: none;
+  outline: none;
+
+  padding: 5px 8px;
+
+  border-radius: 6px;
+
+  background: transparent;
+  color: #8b949e;
+
+  cursor: pointer;
+
+  font-size: 12px;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.copy-code-btn:hover {
+  background: #21262d;
+  color: #ffffff;
+}
+
+.copy-code-btn.copied {
+  color: #3fb950;
+}
+
+/* Code */
+
+.code-block-wrapper pre {
+  margin: 0 !important;
+  padding: 16px;
+
+  overflow-x: auto;
+
+  background: #0d1117 !important;
+}
+
+.code-block-wrapper pre code {
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    Menlo,
+    monospace;
+
+  font-size: 13px;
+  line-height: 1.6;
+
+  tab-size: 4;
+
+  background: transparent !important;
+}
+
+/* Scrollbar */
+
+.code-block-wrapper pre::-webkit-scrollbar {
+  height: 7px;
+}
+
+.code-block-wrapper pre::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+.code-block-wrapper pre::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 10px;
+}
+
+.code-block-wrapper pre::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
