@@ -2,17 +2,17 @@ import { clearField, autoscroll, addMemory } from "./updateHandler.js"
 
 const chatBox = document.querySelector('.chat-UI')
 
-function ph(user, text, from, time){
+function ph(user, text, from, time) {
   return {
     //img component 
     img: `
-      <div class="${user? 'me': 'jarvis'}-avatar-holder">
-        <img src="image/${user? 'avatar.jpg': 'jarvis_ai.jpg'}" alt="icons" class="c-avatar">
+      <div class="${user ? 'me' : 'jarvis'}-avatar-holder">
+        <img src="image/${user ? 'avatar.jpg' : 'jarvis_ai.jpg'}" alt="icons" class="c-avatar">
       </div>
     `,
-  
+
     //message component 
-    fullMsg :`
+    fullMsg: `
       <div class="message">
         <div class="head">
           <b>${from}</b>
@@ -29,7 +29,7 @@ function ph(user, text, from, time){
 //error msg
 export function logErr(from, error) {
   const time = new Date().toLocaleTimeString()
-  
+
   const ui1 = `
     <div class="system">
       <div class="jarvis-avatar-holder">
@@ -54,17 +54,17 @@ export function logErr(from, error) {
 
   // build chat
   chatBox.innerHTML += ui2
-  
+
   autoscroll();
 }
 
 //format message
-export function formatCodeMsg(bodyDiv) {  
-  if (!bodyDiv || bodyDiv.length === 0) return 
-    
+export function formatCodeMsg(bodyDiv) {
+  if (!bodyDiv || bodyDiv.length === 0) return
+
   bodyDiv.forEach(
     boby => boby.querySelectorAll("pre").forEach(pre => {
-    // avoid duplicate buttons
+      // avoid duplicate buttons
       if (pre.querySelector(".copy-btn")) return;
 
       const button = document.createElement("button");
@@ -86,14 +86,14 @@ export function formatCodeMsg(bodyDiv) {
 }
 
 //Adds new Message
-export function createMsg(from, text){
+export function createMsg(from, text) {
   const user = from === 'You'
   const time = new Date().toLocaleTimeString()
-  
+
   //img component 
   const img = `
-    <div class="${user? 'me': 'jarvis'}-avatar-holder">
-      <img src="image/${user ?'me-img.jpg' :'avatar.jpg'}" alt="icons" class="c-avatar">
+    <div class="${user ? 'me' : 'jarvis'}-avatar-holder">
+      <img src="image/${user ? 'me-img.jpg' : 'avatar.jpg'}" alt="icons" class="c-avatar">
     </div>
   `
   //message body
@@ -115,14 +115,14 @@ export function createMsg(from, text){
   const raw = ph(user, text, from, time)
   // build chat
   chatBox.innerHTML += `
-    <div class="${user? 'me': 'jarvis'}">
+    <div class="${user ? 'me' : 'jarvis'}">
       ${user ? '' : raw.img}
       ${raw.fullMsg}
       ${user ? raw.img : ''}
     </div>
   `
   addMemory(
-    user? 'user': 'assistant',
+    user ? 'user' : 'assistant',
     text,
     time
   )
@@ -132,13 +132,13 @@ export function createMsg(from, text){
 }
 
 //Adds Old Message
-export function loadMsg(from, text, time){
+export function loadMsg(from, text, time) {
   const user = from === 'You';
 
   //img component 
   const img = `
-    <div class="${user? 'me': 'jarvis'}-avatar-holder">
-      <img src="image/${user? 'avatar.jpg': 'jarvis_ai.jpg'}" alt="icons" class="c-avatar">
+    <div class="${user ? 'me' : 'jarvis'}-avatar-holder">
+      <img src="image/${user ? 'avatar.jpg' : 'jarvis_ai.jpg'}" alt="icons" class="c-avatar">
     </div>
   `
 
@@ -160,7 +160,7 @@ export function loadMsg(from, text, time){
   const raw = ph(user, text, from, time)
   // build chat
   chatBox.innerHTML += `
-    <div class="${user? 'me': 'jarvis'}">
+    <div class="${user ? 'me' : 'jarvis'}">
       ${user ? '' : raw.img}
       ${raw.fullMsg}
       ${user ? raw.img : ''}
