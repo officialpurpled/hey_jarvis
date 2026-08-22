@@ -1,7 +1,9 @@
 import { statusElem, inputField, showToast, clearField } from './component/updateHandler.js';
 import { createMsg, formatCodeMsg, loadMsg, logErr } from './component/renderMessage.js';
 import { handlePrompt } from './component/responseHandler.js';
-import { base_uri } from './lib/api.js';
+import { base_uri } from './utils/api.js';
+import { getType } from './utils/checktype.js';
+import generateId from './utils/genId.js';
 
 marked.setOptions({
   breaks: true,
@@ -12,30 +14,40 @@ lucide.createIcons()
 
 export let isActive = false
 
-export function loadStorage() {
-  let memory = JSON.parse(localStorage.getItem('chats'))
-
-  if (!memory) {
-    const nId = JSON.parse(localStorage.getItem('jarvisToken')) || `user-${crypto.randomUUID()}`;
-
-    memory = {
-      userId: nId,
-      messages: []
-    }
-
-
-    localStorage.setItem('chats', JSON.stringify(memory))
-    localStorage.setItem('jarvisToken', JSON.stringify(memory.userId))
-  }
-
-  return memory
-}
-
 export const sendbtn = document.querySelector('#sendBtn')
 
 const header = document.querySelector("header");
 const textarea = document.querySelector('textarea')
 
+export function loadStorage() {
+  const oldMemory = JSON.parse(localStorage.getItem('chats'))
+
+  let memory = oldMemory;
+
+  if (getType(oldMemory) !== 'Object') {
+    const savedId = localStorage.getItem('jarvisToken')
+    const uId = savedId
+      ? JSON.parse(savedId)
+      : `user-${generateId()}`;
+
+    if (getType(oldMemory) === 'Array') {
+      memory = {
+        userId: uId,
+        messages: oldMemory
+      }
+    } else {
+      memory = {
+        userId: uId,
+        messages: []
+      }
+    }
+
+    localStorage.setItem('chats', JSON.stringify(memory))
+    localStorage.setItem('jarvisToken', JSON.stringify(uId))
+  }
+
+  return memory
+}
 
 export function liveStatus(param) {
   isActive = param
@@ -125,68 +137,24 @@ document.querySelector('#notisBtn').addEventListener('click', (e) => {
 
 function loadOldChat() {
   try {
-    let prevChat = loadStorage();
+    const prevChat = loadStorage();
 
-    if (!prevChat) {
+    if (prevChat.messages === []) {
       showToast('No previous chat found. Starting fresh.')
-      console.log('No previous chat found.');
       return;
     }
 
-    const isArr = Array.isArray(prevChat);
-
-    if (isArr) {
-      const nId = `user-${crypto.randomUUID()}`;
-      const savedChat = prevChat.map((chat) => chat)
-
-      console.log(savedChat)
-
-      prevChat = {
-        userId: nId,
-        messages: savedChat,
-      };
-
-      localStorage.setItem('jarvisToken', nId);
-      localStorage.setItem('chats', JSON.stringify(prevChat));
-    }
-
-    const oldChat = loadStorage()
-
-    if (!oldChat.userId) {
-      const nId = `user-${crypto.randomUUID()}`;
-      oldChat.userId = nId
-
-      localStorage.setItem('jarvisToken', nId);
-      localStorage.setItem('chats', JSON.stringify(oldChat));
-    }
-
-    if (!oldChat.messages || oldChat.messages.length === 0) {
-      showToast('No previous chat found. Starting fresh.')
-      console.log('No previous chat found.');
-      return;
-    }
-
-    oldChat.messages.forEach((chat) => {
+    prevChat.messages.forEach((chat) => {
       const ai = chat.role === 'assistant';
       const sender = ai ? 'Jarvis' : 'You';
       loadMsg(sender, chat.content, chat.time);
     });
+
   } catch (error) {
     showToast('Error loading previous chat.')
     logErr('System', 'Error loading previous chat. Continue while i fix that.')
     console.error('Error loading previous chat:', error);
   }
-}
-
-function dothisNow() {
-  const prevChat = JSON.parse(localStorage.getItem('chats'))
-
-  prevChat.forEach((chat, i) => {
-    Object.assign(chat, { time: `5:28:${i}` })
-  });
-
-  console.log(prevChat)
-  localStorage.setItem('chats', JSON.stringify(prevChat))
 }
 
 //control header

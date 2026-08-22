@@ -1,4 +1,4 @@
-import { api_key, method } from '../lib/api.js'
+import { api_key, method } from '../utils/api.js'
 import { statusElem } from './updateHandler.js';
 import { createMsg, logErr } from './renderMessage.js';
 import { isActive, sendbtn, liveStatus, loadStorage } from '../jarvis_engine_v3.js';
