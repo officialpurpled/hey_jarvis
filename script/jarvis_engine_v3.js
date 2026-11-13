@@ -12,6 +12,20 @@ marked.setOptions({
 
 lucide.createIcons()
 
+//Ongoing
+const toggle = document.querySelector('#notisBtn')
+let isDark = false
+
+function toggleTheme() {
+  isDark = !isDark
+  document.body.classList.toggle('dark')
+}
+
+toggle.addEventListener('click', () => {
+  console.log(document.querySelector('body'), isDark)
+  toggleTheme()
+})
+
 export let isActive = false
 
 export const sendbtn = document.querySelector('#sendBtn')
@@ -137,9 +151,9 @@ document.querySelector('#notisBtn').addEventListener('click', (e) => {
 
 function loadOldChat() {
   try {
-    const prevChat = loadStorage();
+    let prevChat = loadStorage();
 
-    if (prevChat.messages === []) {
+    if (prevChat.messages == []) {
       showToast('No previous chat found. Starting fresh.')
       return;
     }
