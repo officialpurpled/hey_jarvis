@@ -157,9 +157,10 @@ function loadOldChat() {
     }
 
     prevChat.messages.forEach((chat) => {
-      const ai = chat.role === 'assistant';
-      const sender = ai ? 'Jarvis' : 'You';
-      loadMsg(sender, chat.content, chat.time);
+      const sender = chat.role === 'assistant' ? 'Jarvis' : 'You';
+      const time = chat.time ?? new Date().toLocaleTimeString();
+      const content = chat.content ?? '';
+      loadMsg(sender, content, time);
     });
 
   } catch (error) {
