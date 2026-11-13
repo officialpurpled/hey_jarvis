@@ -34,34 +34,32 @@ const header = document.querySelector("header");
 const textarea = document.querySelector('textarea')
 
 export function loadStorage() {
-  const oldMemory = JSON.parse(localStorage.getItem('chats'))
-
-  let memory = oldMemory;
-
-  if (getType(oldMemory) !== 'Object') {
-    const savedId = localStorage.getItem('jarvisToken')
-    const uId = savedId
-      ? JSON.parse(savedId)
-      : `user-${generateId()}`;
-
-    if (getType(oldMemory) === 'Array') {
-      memory = {
-        userId: uId,
-        messages: oldMemory
-      }
-    } else {
-      memory = {
-        userId: uId,
-        messages: []
-      }
-    }
-
-    localStorage.setItem('chats', JSON.stringify(memory))
-    localStorage.setItem('jarvisToken', JSON.stringify(uId))
+  let raw = localStorage.getItem('chats');
+  let oldMemory;
+  try {
+    oldMemory = raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    console.warn('Corrupted chats entry, will reset.', e);
+    oldMemory = null;
   }
 
-  return memory
+  if (!oldMemory || typeof oldMemory !== 'object' || Array.isArray(oldMemory)) {
+    const savedId = localStorage.getItem('jarvisToken');
+    const uId = savedId ? savedId : `user-${generateId()}`;
+
+    const memory = {
+      userId: uId,
+      messages: Array.isArray(oldMemory) ? oldMemory : []
+    };
+
+    localStorage.setItem('chats', JSON.stringify(memory));
+    localStorage.setItem('jarvisToken', uId);
+    return memory;
+  }
+
+  return oldMemory;
 }
+
 
 export function liveStatus(param) {
   isActive = param
@@ -151,9 +149,9 @@ document.querySelector('#notisBtn').addEventListener('click', (e) => {
 
 function loadOldChat() {
   try {
-    let prevChat = loadStorage();
+    const prevChat = loadStorage();
 
-    if (prevChat.messages == []) {
+    if (prevChat.messages.length === 0) {
       showToast('No previous chat found. Starting fresh.')
       return;
     }
@@ -166,7 +164,7 @@ function loadOldChat() {
 
   } catch (error) {
     showToast('Error loading previous chat.')
-    logErr('System', 'Error loading previous chat. Continue while i fix that.')
+    logErr('System', error.message)
     console.error('Error loading previous chat:', error);
   }
 }

@@ -27,22 +27,15 @@ export function addMemory(role, content, time) {
       userId,
       messages: []
     }
-
-    console.log('if')
-    // localStorage.setItem('chats', JSON.stringify(chat))
   }
 
   chat.messages.push({ role, content, time })
-
-  console.log('else')
 
   if (chat.messages.length > MAX_MEMORY_ENTRIES) {
     chat.messages.splice(0, chat.messages.length - MAX_MEMORY_ENTRIES);
   }
 
   localStorage.setItem('chats', JSON.stringify(chat))
-  console.log('end')
-
 }
 
 //show toast

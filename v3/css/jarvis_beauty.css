@@ -4,6 +4,12 @@ body {
   background-color: #fbf9f9;
 }
 
+body.dark {
+  background-color: #252424;
+  color: white;
+  transition: 0.3s;
+}
+
 .app {
   max-width: 900px;
   margin-left: auto;
@@ -300,3 +306,5 @@ button {
 .message p {
   margin: 5px 0;
 }
+
+/* Dark Mode Theme */
