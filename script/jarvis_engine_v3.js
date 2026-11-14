@@ -2,7 +2,6 @@ import { statusElem, inputField, showToast, clearField } from './component/updat
 import { createMsg, formatCodeMsg, loadMsg, logErr } from './component/renderMessage.js';
 import { handlePrompt } from './component/responseHandler.js';
 import { base_uri } from './utils/api.js';
-import { getType } from './utils/checktype.js';
 import generateId from './utils/genId.js';
 
 marked.setOptions({
@@ -11,20 +10,6 @@ marked.setOptions({
 });
 
 lucide.createIcons()
-
-//Ongoing
-const toggle = document.querySelector('#notisBtn')
-let isDark = false
-
-function toggleTheme() {
-  isDark = !isDark
-  document.body.classList.toggle('dark')
-}
-
-toggle.addEventListener('click', () => {
-  console.log(document.querySelector('body'), isDark)
-  toggleTheme()
-})
 
 export let isActive = false
 
@@ -136,17 +121,6 @@ textarea.addEventListener('keydown', (e) => {
   }
 })
 
-document.querySelector('#addFileBtn').addEventListener('click', (e) => {
-  e.preventDefault()
-  const msg = 'Feature coming soon..'
-  showToast(msg)
-})
-document.querySelector('#notisBtn').addEventListener('click', (e) => {
-  e.preventDefault()
-  const msg = 'Feature coming soon..'
-  showToast(msg)
-})
-
 function loadOldChat() {
   try {
     const prevChat = loadStorage();
@@ -183,3 +157,47 @@ textarea.addEventListener('input', () => {
   textarea.style.height = textarea.scrollHeight + 'px';
   // form.style.height = form.scrollHeight + 'px';
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.querySelector('#notisBtn');
+  // pick every avatar element (adjust the selector if you also need a class)
+  const botImgs = document.querySelectorAll('#bot-avater'); // ← NodeList
+  const themeKey = 'jarvisTheme';
+
+  // true if the stored value is exactly "dark"
+  let isDark = localStorage.getItem(themeKey) === 'dark';
+
+  // ---- Apply saved theme on page load ----
+  if (isDark) {
+    document.body.classList.add('dark');
+    toggle.innerHTML = `<i data-lucide="sun" class="hicon"></i>`;
+    lucide.createIcons();
+  }
+
+  // ---- Theme toggle -------------------------------------------------
+  function toggleTheme() {
+    isDark = !isDark;
+    localStorage.setItem(themeKey, isDark ? 'dark' : 'light');
+
+    if (isDark) {
+      document.body.classList.add('dark');
+      toggle.innerHTML = `<i data-lucide="sun" class="hicon"></i>`;
+      botImgs.forEach(img => img.src = '../image/jarvis-bk.png');
+    } else {
+      document.body.classList.remove('dark');
+      toggle.innerHTML = `<i data-lucide="moon" class="hicon"></i>`;
+      botImgs.forEach(img => img.src = '../image/jarvis-wt.png');
+    }
+
+    lucide.createIcons();   // refresh Lucide SVG icons
+  }
+
+  // ---- Button handlers -----------------------------------------------
+  document.querySelector('#addFileBtn')
+    .addEventListener('click', e => {
+      e.preventDefault();
+      showToast('Feature coming soon..');
+    });
+
+  toggle.addEventListener('click', toggleTheme);
+});

@@ -4,12 +4,6 @@ body {
   background-color: #fbf9f9;
 }
 
-body.dark {
-  background-color: #252424;
-  color: white;
-  transition: 0.3s;
-}
-
 .app {
   max-width: 900px;
   margin-left: auto;
@@ -308,3 +302,49 @@ button {
 }
 
 /* Dark Mode Theme */
+body.dark {
+  background-color: #17191c;
+  color: #e6e8eb;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark header,
+body.dark .chatInput,
+body.dark .caution {
+  background-color: #202328;
+  border-color: #383d45;
+  color: #e6e8eb;
+}
+
+body.dark .chatMessages-container {
+  background-color: #17191c;
+}
+
+body.dark .input-container,
+body.dark .user .message,
+body.dark .addFileBtn {
+  background-color: #2b3038;
+  color: #e6e8eb;
+}
+
+body.dark textarea {
+  color: #e6e8eb;
+}
+
+body.dark textarea::placeholder {
+  color: #a0a6af;
+}
+
+body.dark .sendBtn {
+  background-color: #e6e8eb;
+  color: #202328;
+}
+
+body.dark .version,
+body.dark .time {
+  color: #a0a6af;
+}
+
+body.dark .chatInput {
+  box-shadow: 2px 2px 15px 1px rgba(0, 0, 0, 0.35);
+}

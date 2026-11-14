@@ -20,7 +20,7 @@
   <div class="app">
     <!-- the header sec -->
     <header>
-      <div id="notisBtn" class="nav-back" onclick="toggleTheme()">
+      <div id="notisBtn" class="nav-back">
         <i data-lucide="moon" class="hicon"></i>
       </div>
 
@@ -136,6 +136,22 @@ what a day
       Jarvis AI can make mistakes. Check important info.
     </div>
   </div>
+  <!-- <script>
+    const themePreferenceKey = 'jarvisTheme';
+    document.body.classList.toggle('dark', localStorage.getItem(themePreferenceKey) === 'dark');
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element) || !target.closest('#notisBtn')) return;
+
+      window.setTimeout(() => {
+        localStorage.setItem(
+          themePreferenceKey,
+          document.body.classList.contains('dark') ? 'dark' : 'light'
+        );
+      }, 0);
+    }, true); -->
+  </script>
   <script src="../script/lib/lucide.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>

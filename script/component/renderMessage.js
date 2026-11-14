@@ -1,11 +1,13 @@
 import { clearField, autoscroll, addMemory } from "./updateHandler.js"
 
 const chatBox = document.querySelector('.chatMessages-container')
+let isDark = localStorage.getItem('jarvisTheme') === 'dark'
+
 
 function buildHtml(user, text, time) {
   //img component 
   const img = `
-      <img src="../image/${user ? 'avatar.png' : 'jarvis-wt.png'}" alt="icons" class="c-avatar">
+      <img src="../image/${user ? 'avatar.png' : isDark ? 'jarvis-bk.png' : 'jarvis-wt.png'}" alt="icons" class="c-avatar" id="${user ? 'user-avater' : 'bot-avater'}">
     `
   //message component 
   const body = `
