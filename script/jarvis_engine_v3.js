@@ -160,21 +160,16 @@ textarea.addEventListener('input', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('#notisBtn');
-  // pick every avatar element (adjust the selector if you also need a class)
-  const botImgs = document.querySelectorAll('#bot-avater'); // ← NodeList
   const themeKey = 'jarvisTheme';
 
-  // true if the stored value is exactly "dark"
   let isDark = localStorage.getItem(themeKey) === 'dark';
 
-  // ---- Apply saved theme on page load ----
   if (isDark) {
     document.body.classList.add('dark');
     toggle.innerHTML = `<i data-lucide="sun" class="hicon"></i>`;
     lucide.createIcons();
   }
 
-  // ---- Theme toggle -------------------------------------------------
   function toggleTheme() {
     isDark = !isDark;
     localStorage.setItem(themeKey, isDark ? 'dark' : 'light');
@@ -182,17 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isDark) {
       document.body.classList.add('dark');
       toggle.innerHTML = `<i data-lucide="sun" class="hicon"></i>`;
-      botImgs.forEach(img => img.src = '../image/jarvis-bk.png');
     } else {
       document.body.classList.remove('dark');
       toggle.innerHTML = `<i data-lucide="moon" class="hicon"></i>`;
-      botImgs.forEach(img => img.src = '../image/jarvis-wt.png');
     }
 
-    lucide.createIcons();   // refresh Lucide SVG icons
+    lucide.createIcons();
   }
 
-  // ---- Button handlers -----------------------------------------------
   document.querySelector('#addFileBtn')
     .addEventListener('click', e => {
       e.preventDefault();

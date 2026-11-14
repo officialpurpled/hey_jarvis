@@ -1,13 +1,12 @@
 import { clearField, autoscroll, addMemory } from "./updateHandler.js"
 
 const chatBox = document.querySelector('.chatMessages-container')
-let isDark = localStorage.getItem('jarvisTheme') === 'dark'
 
 
 function buildHtml(user, text, time) {
   //img component 
   const img = `
-      <img src="../image/${user ? 'avatar.png' : isDark ? 'jarvis-bk.png' : 'jarvis-wt.png'}" alt="icons" class="c-avatar" id="${user ? 'user-avater' : 'bot-avater'}">
+      <img src="../image/${user ? 'avatar.png' : 'jarvis-bk.png'}" alt="icons" class="c-avatar"}">
     `
   //message component 
   const body = `
@@ -32,23 +31,22 @@ function buildHtml(user, text, time) {
 //error msg
 export function logErr(from, error) {
   const time = new Date().toLocaleTimeString()
-
-  const ui1 = `
-    <div class="system">
-      <div class="jarvis-avatar-holder">
-        <img src="image/avatar.png" alt="icons" class="c-avatar">
-      </div>
-      <div class="message">
-        <div class="head">
-          <b>${from}</b>
-          <i class="time">${time.split(':')[0]}:${time.split(':')[1]}</i>
-        </div>
-        <div class="body">
-          ${DOMPurify.sanitize(marked.parse(error))} 
-        </div>
-      </div>
-    </div>
-  `
+  // const ui1 = `
+  //   <div class="system">
+  //     <div class="jarvis-avatar-holder">
+  //       <img src="image/avatar.png" alt="icons" class="c-avatar">
+  //     </div>
+  //     <div class="message">
+  //       <div class="head">
+  //         <b>${from}</b>
+  //         <i class="time">${time.split(':')[0]}:${time.split(':')[1]}</i>
+  //       </div>
+  //       <div class="body">
+  //         ${DOMPurify.sanitize(marked.parse(error))} 
+  //       </div>
+  //     </div>
+  //   </div>
+  // `
   const ui2 = `
     <div class="system">
       ${from}: ${DOMPurify.sanitize(marked.parse(error))}
